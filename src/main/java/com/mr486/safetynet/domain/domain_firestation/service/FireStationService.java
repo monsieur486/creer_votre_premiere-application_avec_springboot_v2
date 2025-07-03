@@ -15,9 +15,9 @@ public interface FireStationService {
 
   FireStation getFireStationByAddress(String address);
 
-  FireStation addFireStation(FireStation FireStation);
+  FireStation addFireStation(FireStation fireStation);
 
-  FireStation updateFireStation(FireStation FireStation);
+  FireStation updateFireStation(FireStation fireStation);
 
-  void deleteFireStation(FireStation FireStation);
+  void deleteFireStation(FireStation fireStation);
 }

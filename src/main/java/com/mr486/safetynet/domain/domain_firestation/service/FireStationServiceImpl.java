@@ -50,21 +50,41 @@ public class FireStationServiceImpl implements FireStationService {
 
   @Override
   public FireStation getFireStationByAddress(String address) {
-    return null;
+    if (address == null || address.isEmpty()) {
+      return null;
+    }
+
+    return fireStationRepository.getFireStationByAddress(address);
   }
 
   @Override
-  public FireStation addFireStation(FireStation FireStation) {
-    return null;
+  public FireStation addFireStation(FireStation fireStation) {
+    if (existsByAddress(fireStation.getAddress())) {
+      throw new IllegalArgumentException("Firestation with this address already exists");
+    }
+
+    fireStationRepository.addfireStation(fireStation);
+
+    return fireStation;
   }
 
   @Override
-  public FireStation updateFireStation(FireStation FireStation) {
-    return null;
+  public FireStation updateFireStation(FireStation fireStation) {
+    return  fireStationRepository.getFireStationByAddress(fireStation.getAddress());
   }
 
   @Override
-  public void deleteFireStation(FireStation FireStation) {
+  public void deleteFireStation(FireStation fireStation) {
+    if (fireStation == null || fireStation.getAddress() == null) {
+      throw new IllegalArgumentException("Firestation or address cannot be null");
+    }
+
+    FireStation existingFirestation = fireStationRepository.getFireStationByAddress(fireStation.getAddress());
+    if (existingFirestation == null) {
+      throw new IllegalArgumentException("Firestation with this address does not exist");
+    }
+
+    fireStationRepository.deletefireStation(existingFirestation);
 
   }
 }

@@ -5,6 +5,7 @@ import com.mr486.safetynet.domain.domain_firestation.service.FireStationService;
 import com.mr486.safetynet.tools.ApiResponse;
 import com.mr486.safetynet.tools.ResponseUtil;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,9 +35,9 @@ public class FireStationController {
   @PostMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<ApiResponse<FireStation>> addFirestation(@Valid @RequestBody FireStation fireStation) {
     FireStation addedFirestation = fireStationService.addFireStation(fireStation);
-    return ResponseEntity.ok(
-            ResponseUtil.created(
-                    "Fire station created successfully",
-                    addedFirestation));
+    return new ResponseEntity<>(
+            ResponseUtil.created("Firestation added successfully", addedFirestation),
+            HttpStatus.CREATED
+    );
   }
 }
