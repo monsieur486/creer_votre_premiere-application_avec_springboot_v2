@@ -145,4 +145,75 @@ class FireStationRepositoryImplJsonTest {
   void existByAddress_nonExisting_shouldReturnFalse() {
     assertFalse(repository.existByAddress("000 Rue Z"));
   }
+
+  /**
+   * Tests that passing null to getAllFireStationsByStationNumber throws an exception.
+   */
+  @Test
+  void getAllFireStationsByStationNumber_null_shouldThrowException() {
+    Exception exception = assertThrows(IllegalArgumentException.class, () ->
+            repository.getAllFireStationsByStationNumber(null));
+    assertEquals("Station number must not be null", exception.getMessage());
+  }
+
+  /**
+   * Tests that passing null to getFireStationByAddress throws an exception.
+   */
+  @Test
+  void getFireStationByAddress_null_shouldThrowException() {
+    Exception exception = assertThrows(IllegalArgumentException.class, () ->
+            repository.getFireStationByAddress(null));
+    assertEquals("Adress must not be blank", exception.getMessage());
+  }
+
+  /**
+   * Tests that passing a blank address to getFireStationByAddress throws an exception.
+   */
+  @Test
+  void getFireStationByAddress_blank_shouldThrowException() {
+    Exception exception = assertThrows(IllegalArgumentException.class, () ->
+            repository.getFireStationByAddress("   "));
+    assertEquals("Adress must not be blank", exception.getMessage());
+  }
+
+  /**
+   * Tests that adding a null fire station throws an exception.
+   */
+  @Test
+  void addfireStation_null_shouldThrowException() {
+    Exception exception = assertThrows(IllegalArgumentException.class, () ->
+            repository.addfireStation(null));
+    assertEquals("Firestation must not be null", exception.getMessage());
+  }
+
+  /**
+   * Tests that adding a duplicate fire station throws an exception.
+   */
+  @Test
+  void addfireStation_duplicateAddress_shouldThrowException() {
+    FireStation duplicate = new FireStation("123 Rue A", 1);
+    Exception exception = assertThrows(IllegalArgumentException.class, () ->
+            repository.addfireStation(duplicate));
+    assertEquals("Firestation with this address already exists: 123 Rue A", exception.getMessage());
+  }
+
+  /**
+   * Tests that updating a null fire station throws an exception.
+   */
+  @Test
+  void updateFireStation_null_shouldThrowException() {
+    Exception exception = assertThrows(IllegalArgumentException.class, () ->
+            repository.updateFireStation(null));
+    assertEquals("Firestation must not be null", exception.getMessage());
+  }
+
+  /**
+   * Tests that deleting a null fire station throws an exception.
+   */
+  @Test
+  void deletefireStation_null_shouldThrowException() {
+    Exception exception = assertThrows(IllegalArgumentException.class, () ->
+            repository.deletefireStation(null));
+    assertEquals("Firestation must not be null", exception.getMessage());
+  }
 }
