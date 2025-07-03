@@ -20,16 +20,14 @@ import static org.mockito.Mockito.when;
  */
 class FireStationRepositoryImplJsonTest {
 
-  @Mock
-  private JsonDataLoader jsonDataLoader; // Mocked dependency for loading JSON data.
-
-  @InjectMocks
-  private FireStationRepositoryImplJson repository; // Repository under test.
-
   private final List<FireStation> mockFirestations = List.of(
           new FireStation("123 Rue A", 1),
           new FireStation("456 Rue B", 2)
   );
+  @Mock
+  private JsonDataLoader jsonDataLoader; // Mocked dependency for loading JSON data.
+  @InjectMocks
+  private FireStationRepositoryImplJson repository; // Repository under test.
 
   /**
    * Sets up the test environment before each test.

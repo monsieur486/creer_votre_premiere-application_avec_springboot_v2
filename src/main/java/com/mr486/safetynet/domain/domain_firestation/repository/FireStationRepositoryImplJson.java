@@ -19,11 +19,9 @@ import java.util.List;
 @Slf4j
 public class FireStationRepositoryImplJson implements FireStationRepository {
 
+  private final JsonDataLoader jsonDataLoader;
   @Value("${json.file.path}")
   String dataFilePath;
-
-  private final JsonDataLoader jsonDataLoader;
-
   private List<FireStation> fireStations = Collections.emptyList();
 
   /**

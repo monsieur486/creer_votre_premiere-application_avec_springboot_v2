@@ -4,7 +4,6 @@ import com.mr486.safetynet.domain.domain_firestation.model.FireStation;
 import com.mr486.safetynet.domain.domain_firestation.service.FireStationService;
 import com.mr486.safetynet.tools.ApiResponse;
 import com.mr486.safetynet.tools.ResponseUtil;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
