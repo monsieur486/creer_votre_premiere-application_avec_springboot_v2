@@ -2,6 +2,7 @@ package com.mr486.safetynet.domain.domain_firestation.model;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class FireStation {
 
   /**

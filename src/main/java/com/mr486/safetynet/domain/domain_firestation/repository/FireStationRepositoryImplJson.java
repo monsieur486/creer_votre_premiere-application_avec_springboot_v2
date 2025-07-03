@@ -1,14 +1,12 @@
 package com.mr486.safetynet.domain.domain_firestation.repository;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mr486.safetynet.domain.domain_firestation.model.FireStation;
 import com.mr486.safetynet.tools.DataBinding;
+import com.mr486.safetynet.tools.JsonDataLoader;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
@@ -20,7 +18,14 @@ import java.util.List;
 @Slf4j
 public class FireStationRepositoryImplJson implements FireStationRepository {
 
+  private final JsonDataLoader jsonDataLoader;
+
+
   private List<FireStation> fireStations = Collections.emptyList();
+
+  public FireStationRepositoryImplJson(JsonDataLoader jsonDataLoader) {
+    this.jsonDataLoader = jsonDataLoader;
+  }
 
   /**
    * Initializes the repository by loading fire station data from a JSON file.
@@ -28,25 +33,9 @@ public class FireStationRepositoryImplJson implements FireStationRepository {
    */
   @PostConstruct
   private void init() {
-    log.warn("Chargement de la base de données à partir du fichier JSON");
-    ObjectMapper mapper = new ObjectMapper();
-    File file = new File("data/data.json");
-
-    if (file.exists()) {
-      log.warn("Fichier de données trouvé : {}", file.getAbsolutePath());
-      try {
-        // Read the JSON file and map it to the DataBinding class
-        DataBinding dataBinding = mapper.readValue(file, DataBinding.class);
-        fireStations = dataBinding.getFirestations();
-        // Initialize the lists from the DataBinding object
-      } catch (IOException e) {
-        throw new RuntimeException("Error reading the data file: " + e.getMessage(), e);
-      }
-
-    } else {
-      // If the file does not exist, initialize with empty lists
-      log.warn("Fichier de données non trouvé, initialisation avec des listes vides");
-    }
+    log.warn("Data loading from json file");
+    DataBinding dataBinding = jsonDataLoader.loadData("data/data.json");
+    fireStations = dataBinding.getFirestations();
   }
 
   /**
