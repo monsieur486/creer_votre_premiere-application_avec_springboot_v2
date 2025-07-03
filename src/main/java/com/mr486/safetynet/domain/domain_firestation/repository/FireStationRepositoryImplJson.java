@@ -26,6 +26,11 @@ public class FireStationRepositoryImplJson implements FireStationRepository {
 
   private List<FireStation> fireStations = Collections.emptyList();
 
+  /**
+   * Constructor for FireStationRepositoryImplJson.
+   *
+   * @param jsonDataLoader the JsonDataLoader used to load data from the JSON file.
+   */
   public FireStationRepositoryImplJson(JsonDataLoader jsonDataLoader) {
     this.jsonDataLoader = jsonDataLoader;
   }
@@ -50,7 +55,6 @@ public class FireStationRepositoryImplJson implements FireStationRepository {
       log.error("Error loading fire stations data: {}", e.getMessage());
       throw new RuntimeException("Error while loading fire stations data: " + e.getMessage(), e);
     }
-
   }
 
   /**
