@@ -4,11 +4,10 @@ import com.mr486.safetynet.domain.domain_firestation.model.FireStation;
 import com.mr486.safetynet.domain.domain_firestation.service.FireStationService;
 import com.mr486.safetynet.tools.ApiResponse;
 import com.mr486.safetynet.tools.ResponseUtil;
+import jakarta.validation.Valid;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,6 +25,18 @@ public class FireStationController {
   @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<ApiResponse<List<FireStation>>> getAllFirestations() {
     List<FireStation> fireStations = fireStationService.getAllFireStations();
-    return ResponseEntity.ok(ResponseUtil.success("Fire stations retrieved successfully", fireStations));
+    return ResponseEntity.ok(
+            ResponseUtil.success(
+                    "Fire stations retrieved successfully",
+                    fireStations));
+  }
+
+  @PostMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<ApiResponse<FireStation>> addFirestation(@Valid @RequestBody FireStation fireStation) {
+    FireStation addedFirestation = fireStationService.addFireStation(fireStation);
+    return ResponseEntity.ok(
+            ResponseUtil.created(
+                    "Fire station created successfully",
+                    addedFirestation));
   }
 }
