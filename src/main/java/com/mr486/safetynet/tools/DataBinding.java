@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class DataBinding {
-  List<FireStation> firestations;
   List<Person> persons;
+  List<FireStation> firestations;
   List<MedicalRecord> medicalrecords;
 }

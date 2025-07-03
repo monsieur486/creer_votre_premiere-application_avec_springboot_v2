@@ -28,21 +28,24 @@ public class FireStationRepositoryImplJson implements FireStationRepository {
    */
   @PostConstruct
   private void init() {
-    log.warn("Data loading from JSON file");
+    log.warn("Chargement de la base de données à partir du fichier JSON");
     ObjectMapper mapper = new ObjectMapper();
     File file = new File("data/data.json");
 
     if (file.exists()) {
-      log.warn("File not found : {}", file.getAbsolutePath());
+      log.warn("Fichier de données trouvé : {}", file.getAbsolutePath());
       try {
         // Read the JSON file and map it to the DataBinding class
         DataBinding dataBinding = mapper.readValue(file, DataBinding.class);
         fireStations = dataBinding.getFirestations();
+        // Initialize the lists from the DataBinding object
       } catch (IOException e) {
         throw new RuntimeException("Error reading the data file: " + e.getMessage(), e);
       }
+
     } else {
-      log.warn("File not found. Creating an empty list of fire stations.");
+      // If the file does not exist, initialize with empty lists
+      log.warn("Fichier de données non trouvé, initialisation avec des listes vides");
     }
   }
 
