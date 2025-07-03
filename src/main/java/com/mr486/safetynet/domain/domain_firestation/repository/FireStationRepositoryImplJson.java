@@ -33,9 +33,21 @@ public class FireStationRepositoryImplJson implements FireStationRepository {
    */
   @PostConstruct
   private void init() {
-    log.warn("Data loading from json file");
-    DataBinding dataBinding = jsonDataLoader.loadData("data/data.json");
-    fireStations = dataBinding.getFirestations();
+    log.warn("Fire stations data loading from json file");
+
+    try {
+      DataBinding dataBinding = jsonDataLoader.loadData("data/data.json");
+      fireStations = dataBinding.getFirestations();
+      if (fireStations == null || fireStations.isEmpty()) {
+        log.warn("No fire stations found in the JSON file.");
+      } else {
+        log.info("Fire stations data loaded successfully, count: {}", fireStations.size());
+      }
+    } catch (Exception e) {
+      log.error("Error loading fire stations data: {}", e.getMessage());
+      throw new RuntimeException("Error while loading fire stations data: " + e.getMessage(), e);
+    }
+
   }
 
   /**
