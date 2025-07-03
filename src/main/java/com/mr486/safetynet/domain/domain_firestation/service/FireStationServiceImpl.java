@@ -70,7 +70,7 @@ public class FireStationServiceImpl implements FireStationService {
 
   @Override
   public FireStation updateFireStation(FireStation fireStation) {
-    return  fireStationRepository.getFireStationByAddress(fireStation.getAddress());
+    return fireStationRepository.getFireStationByAddress(fireStation.getAddress());
   }
 
   @Override

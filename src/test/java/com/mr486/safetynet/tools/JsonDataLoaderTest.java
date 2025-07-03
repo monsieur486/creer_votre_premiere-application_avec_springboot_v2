@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Unit tests for the JsonDataLoader class.
  * This class verifies the behavior of the JsonDataLoader when loading JSON data.
  */
-class JsonDataLoaderTest {
+public class JsonDataLoaderTest {
 
   private JsonDataLoader jsonDataLoader;
 

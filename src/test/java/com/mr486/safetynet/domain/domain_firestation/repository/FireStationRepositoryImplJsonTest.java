@@ -18,7 +18,7 @@ import static org.mockito.Mockito.when;
  * Unit tests for the FireStationRepositoryImplJson class.
  * This class uses Mockito to mock dependencies and test the repository's behavior.
  */
-class FireStationRepositoryImplJsonTest {
+public class FireStationRepositoryImplJsonTest {
 
   private final List<FireStation> mockFirestations = List.of(
           new FireStation("123 Rue A", 1),
