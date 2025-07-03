@@ -40,13 +40,12 @@ public class FireStationRepositoryImplJson implements FireStationRepository {
    * This method is called automatically after the bean is constructed.
    */
   @PostConstruct
-  private void init() {
+  void init() {
     log.warn("Fire stations data loading from json file");
-
     try {
       DataBinding dataBinding = jsonDataLoader.loadData(dataFilePath);
-      fireStations = dataBinding.getFirestations();
-      if (fireStations == null || fireStations.isEmpty()) {
+      fireStations = new java.util.ArrayList<>(dataBinding.getFirestations());
+      if (fireStations.isEmpty()) {
         log.warn("No fire stations found in the JSON file.");
       } else {
         log.info("Fire stations data loaded successfully, count: {}", fireStations.size());
@@ -139,8 +138,7 @@ public class FireStationRepositoryImplJson implements FireStationRepository {
 
     for (int i = 0; i < fireStations.size(); i++) {
       FireStation existingFirestation = fireStations.get(i);
-      if (existingFirestation.getStation().equals(fireStation.getStation()) &&
-              existingFirestation.getAddress().equals(fireStation.getAddress())) {
+      if (existingFirestation.getAddress().equals(fireStation.getAddress())) {
         fireStations.set(i, fireStation);
         return fireStation;
       }
