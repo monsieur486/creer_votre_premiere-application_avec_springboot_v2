@@ -5,6 +5,7 @@ import com.mr486.safetynet.tools.DataBinding;
 import com.mr486.safetynet.tools.JsonDataLoader;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collections;
@@ -18,8 +19,10 @@ import java.util.List;
 @Slf4j
 public class FireStationRepositoryImplJson implements FireStationRepository {
 
-  private final JsonDataLoader jsonDataLoader;
+  @Value("${json.file.path}")
+  String dataFilePath;
 
+  private final JsonDataLoader jsonDataLoader;
 
   private List<FireStation> fireStations = Collections.emptyList();
 
@@ -36,7 +39,7 @@ public class FireStationRepositoryImplJson implements FireStationRepository {
     log.warn("Fire stations data loading from json file");
 
     try {
-      DataBinding dataBinding = jsonDataLoader.loadData("data/data.json");
+      DataBinding dataBinding = jsonDataLoader.loadData(dataFilePath);
       fireStations = dataBinding.getFirestations();
       if (fireStations == null || fireStations.isEmpty()) {
         log.warn("No fire stations found in the JSON file.");
