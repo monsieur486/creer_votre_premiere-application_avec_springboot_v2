@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Data
 @NoArgsConstructor
-public class Firestation {
+public class FireStation {
 
   /**
    * The address of the fire station.

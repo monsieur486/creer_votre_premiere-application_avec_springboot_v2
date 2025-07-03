@@ -1,6 +1,6 @@
 package com.mr486.safetynet.domain.domain_firestation.repository;
 
-import com.mr486.safetynet.domain.domain_firestation.model.Firestation;
+import com.mr486.safetynet.domain.domain_firestation.model.FireStation;
 
 import java.util.List;
 
@@ -8,14 +8,14 @@ import java.util.List;
  * Interface for managing fire station data.
  * Provides methods for CRUD operations and querying fire stations.
  */
-public interface FirestationRepository {
+public interface FireStationRepository {
 
   /**
    * Retrieves all fire stations.
    *
    * @return a list of all fire stations.
    */
-  List<Firestation> getAllFirestations();
+  List<FireStation> getAllFireStations();
 
   /**
    * Retrieves fire stations by their station number.
@@ -23,7 +23,7 @@ public interface FirestationRepository {
    * @param stationNumber the station number to filter by.
    * @return a list of fire stations matching the given station number.
    */
-  List<Firestation> getAllFirestationsByStationNumber(Integer stationNumber);
+  List<FireStation> getAllFireStationsByStationNumber(Integer stationNumber);
 
   /**
    * Retrieves a fire station by its address.
@@ -31,30 +31,30 @@ public interface FirestationRepository {
    * @param address the address of the fire station.
    * @return the fire station matching the given address, or null if not found.
    */
-  Firestation getFirestationByAddress(String address);
+  FireStation getFireStationByAddress(String address);
 
   /**
    * Adds a new fire station.
    *
-   * @param firestation the fire station to add.
+   * @param fireStation the fire station to add.
    * @return the added fire station.
    */
-  Firestation addFirestation(Firestation firestation);
+  FireStation addfireStation(FireStation fireStation);
 
   /**
    * Updates an existing fire station.
    *
-   * @param firestation the fire station with updated information.
+   * @param fireStation the fire station with updated information.
    * @return the updated fire station, or null if the fire station does not exist.
    */
-  Firestation updateFirestation(Firestation firestation);
+  FireStation updateFireStation(FireStation fireStation);
 
   /**
    * Deletes a fire station.
    *
-   * @param firestation the fire station to delete.
+   * @param fireStation the fire station to delete.
    */
-  void deleteFirestation(Firestation firestation);
+  void deletefireStation(FireStation fireStation);
 
   /**
    * Checks if a fire station exists by its address.

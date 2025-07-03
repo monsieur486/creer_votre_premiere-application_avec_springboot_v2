@@ -1,8 +1,10 @@
 package com.mr486.safetynet;
 
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * Unit tests for the `MyService` class.
@@ -35,6 +37,7 @@ public class MyServiceTest {
   static class MyService {
     /**
      * A method that returns a string value.
+     *
      * @return the string "real"
      */
     String doSomething() {
