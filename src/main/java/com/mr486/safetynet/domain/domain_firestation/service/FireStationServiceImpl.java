@@ -1,5 +1,7 @@
 package com.mr486.safetynet.domain.domain_firestation.service;
 
+import com.mr486.safetynet.domain.domain_firestation.expetion.FireStationAlreadyExistsException;
+import com.mr486.safetynet.domain.domain_firestation.expetion.FireStationNotFoundException;
 import com.mr486.safetynet.domain.domain_firestation.model.FireStation;
 import com.mr486.safetynet.domain.domain_firestation.repository.FireStationRepository;
 import org.springframework.stereotype.Service;
@@ -107,7 +109,11 @@ public class FireStationServiceImpl implements FireStationService {
   @Override
   public FireStation addFireStation(FireStation fireStation) {
     if (existsByAddress(fireStation.getAddress())) {
-      throw new IllegalArgumentException("Firestation with this address already exists");
+      throw new FireStationAlreadyExistsException(
+          "Fire station with address "
+                  + fireStation.getAddress()
+                  + " already exists."
+      );
     }
 
     fireStationRepository.addfireStation(fireStation);
@@ -123,6 +129,13 @@ public class FireStationServiceImpl implements FireStationService {
    */
   @Override
   public FireStation updateFireStation(FireStation fireStation) {
+    if(!exists(fireStation)) {
+      throw  new FireStationNotFoundException(
+              "Fire station with address "
+                      + fireStation.getAddress()
+                      + " does not exist.");
+
+    }
     return fireStationRepository.getFireStationByAddress(fireStation.getAddress());
   }
 
@@ -135,15 +148,14 @@ public class FireStationServiceImpl implements FireStationService {
    */
   @Override
   public void deleteFireStation(FireStation fireStation) {
-    if (fireStation == null || fireStation.getAddress() == null) {
-      throw new IllegalArgumentException("Firestation or address cannot be null");
+    if(!exists(fireStation)) {
+      throw  new FireStationNotFoundException(
+              "Fire station with address "
+                      + fireStation.getAddress()
+                      + " does not exist.");
+
     }
 
-    FireStation existingFirestation = fireStationRepository.getFireStationByAddress(fireStation.getAddress());
-    if (existingFirestation == null) {
-      throw new IllegalArgumentException("Firestation with this address does not exist");
-    }
-
-    fireStationRepository.deletefireStation(existingFirestation);
+    fireStationRepository.deletefireStation(fireStation);
   }
 }
