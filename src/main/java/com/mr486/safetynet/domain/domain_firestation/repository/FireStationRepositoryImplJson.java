@@ -46,7 +46,7 @@ public class FireStationRepositoryImplJson implements FireStationRepository {
       if (fireStations.isEmpty()) {
         log.warn("No fire stations found in the JSON file.");
       } else {
-        log.info("Fire stations data loaded successfully, count: {}", fireStations.size());
+        log.warn("Fire stations data loaded successfully, count: {}", fireStations.size());
       }
     } catch (Exception e) {
       log.error("Error loading fire stations data: {}", e.getMessage());
