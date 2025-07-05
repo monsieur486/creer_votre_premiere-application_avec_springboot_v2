@@ -4,7 +4,6 @@ import com.mr486.safetynet.model.FireStation;
 import com.mr486.safetynet.model.MedicalRecord;
 import com.mr486.safetynet.model.Person;
 import lombok.Data;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +12,6 @@ import java.util.List;
  * Represents a data binding component that holds lists of persons, fire stations, and medical records.
  * This class is a Spring component and uses Lombok annotations to reduce boilerplate code.
  */
-@Component
 @Data
 public class DataBinding {
 

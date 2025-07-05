@@ -11,8 +11,8 @@ import java.io.File;
  * Component responsible for loading data from a JSON file.
  * Utilizes Jackson's ObjectMapper to deserialize JSON into a DataBinding object.
  */
-@Component
 @Slf4j
+@Component
 public class JsonDataLoader {
 
   @Value("${json.file.path}")
