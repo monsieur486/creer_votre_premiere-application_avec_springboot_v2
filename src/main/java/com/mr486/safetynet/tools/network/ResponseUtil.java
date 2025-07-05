@@ -1,6 +1,7 @@
 package com.mr486.safetynet.tools.network;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 /**
  * Utility class for creating standardized API responses.
@@ -11,48 +12,52 @@ public class ResponseUtil {
   /**
    * Creates a success response with HTTP status 200 (OK).
    *
-   * @param <T>     the type of the response data
-   * @param message the success message
-   * @param data    the response data
-   * @return an ApiResponse object with status 200
+   * @param <T> the type of the response body
+   * @param data the data to include in the response body
+   * @return a ResponseEntity containing the data and HTTP status 200
    */
-  public static <T> ApiResponse<T> success(String message, T data) {
-    return new ApiResponse<>(HttpStatus.OK, message, data);
+  public static <T> ResponseEntity<T> success(T data) {
+    return new ResponseEntity<>(data, HttpStatus.OK);
   }
 
   /**
-   * Creates a response for a successfully created resource with HTTP status 201 (Created).
+   * Creates a response with HTTP status 201 (Created).
    *
-   * @param <T>     the type of the response data
-   * @param message the success message
-   * @param data    the response data
-   * @return an ApiResponse object with status 201
+   * @param message the message to include in the response body
+   * @return a ResponseEntity containing the message and HTTP status 201
    */
-  public static <T> ApiResponse<T> created(String message, T data) {
-    return new ApiResponse<>(HttpStatus.CREATED, message, data);
+  public static <T> ResponseEntity<String> created(String message) {
+    return new ResponseEntity<>(message, HttpStatus.CREATED);
   }
 
   /**
-   * Creates a response for a resource not found with HTTP status 404 (Not Found).
+   * Creates a response with HTTP status 400 (Bad Request).
    *
-   * @param <T>     the type of the response data
-   * @param message the error message
-   * @param data    the response data
-   * @return an ApiResponse object with status 404
+   * @param message the message to include in the response body
+   * @return a ResponseEntity containing the message and HTTP status 400
    */
-  public static <T> ApiResponse<T> notFound(String message, T data) {
-    return new ApiResponse<>(HttpStatus.NOT_FOUND, message, data);
+  public static ResponseEntity<String> badRequest(String message) {
+    return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
   }
 
   /**
-   * Creates an error response with HTTP status 400 (Bad Request).
+   * Creates a response with HTTP status 404 (Not Found).
    *
-   * @param <T>     the type of the response data
-   * @param message the error message
-   * @param data    the response data
-   * @return an ApiResponse object with status 400
+   * @param message the message to include in the response body
+   * @return a ResponseEntity containing the message and HTTP status 404
    */
-  public static <T> ApiResponse<T> error(String message, T data) {
-    return new ApiResponse<>(HttpStatus.BAD_REQUEST, message, data);
+  public static ResponseEntity<String> notFound(String message) {
+    return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
   }
+
+  /**
+   * Creates a response with HTTP status 500 (Internal Server Error).
+   *
+   * @param message the message to include in the response body
+   * @return a ResponseEntity containing the message and HTTP status 500
+   */
+  public static ResponseEntity<String> internalServerError(String message) {
+    return new ResponseEntity<>(message, HttpStatus.INTERNAL_SERVER_ERROR);
+  }
+
 }

@@ -2,8 +2,7 @@ package com.mr486.safetynet.configuration;
 
 import com.mr486.safetynet.expetion.EntityAlreadyExistsException;
 import com.mr486.safetynet.expetion.EntityNotFoundException;
-import com.mr486.safetynet.tools.network.ApiResponse;
-import org.springframework.http.HttpStatus;
+import com.mr486.safetynet.tools.network.ResponseUtil;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -24,13 +23,10 @@ public class GlobalExceptionHandler {
    * @return ResponseEntity containing an ApiResponse with error details
    */
   @ExceptionHandler(EntityAlreadyExistsException.class)
-  public ResponseEntity<ApiResponse<String>> handleAlreadyExists(EntityAlreadyExistsException ex) {
-    ApiResponse<String> response = new ApiResponse<>(
-            HttpStatus.BAD_REQUEST,
-            "Bad request: " + ex.getMessage(),
-            null
+  public ResponseEntity<String> handleAlreadyExists(EntityAlreadyExistsException ex) {
+    return ResponseUtil.badRequest(
+            "❌ Duplicate: " + ex.getMessage()
     );
-    return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
   }
 
   /**
@@ -41,13 +37,10 @@ public class GlobalExceptionHandler {
    * @return ResponseEntity containing an ApiResponse with error details
    */
   @ExceptionHandler(EntityNotFoundException.class)
-  public ResponseEntity<ApiResponse<String>> handleNotFound(EntityNotFoundException ex) {
-    ApiResponse<String> response = new ApiResponse<>(
-            HttpStatus.NOT_FOUND,
-            "Not found: " + ex.getMessage(),
-            null
+  public ResponseEntity<String> handleNotFound(EntityNotFoundException ex) {
+    return ResponseUtil.notFound(
+            "Entity not found: " + ex.getMessage()
     );
-    return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
   }
 
   /**
@@ -58,12 +51,9 @@ public class GlobalExceptionHandler {
    * @return ResponseEntity containing an ApiResponse with error details
    */
   @ExceptionHandler(Exception.class)
-  public ResponseEntity<ApiResponse<String>> handleException(Exception ex) {
-    ApiResponse<String> response = new ApiResponse<>(
-            HttpStatus.INTERNAL_SERVER_ERROR,
-            "Internal Server Error: " + ex.getMessage(),
-            null
+  public ResponseEntity<String> handleException(Exception ex) {
+    return ResponseUtil.internalServerError(
+            "Internal server error: " + ex.getMessage()
     );
-    return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
   }
 }
