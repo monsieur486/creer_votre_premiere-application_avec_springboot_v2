@@ -1,6 +1,7 @@
 package com.mr486.safetynet.service;
 
 import com.mr486.safetynet.expetion.EntityAlreadyExistsException;
+import com.mr486.safetynet.expetion.EntityNotFoundException;
 import com.mr486.safetynet.model.FireStation;
 import com.mr486.safetynet.repository.FireStationRepository;
 import lombok.RequiredArgsConstructor;
@@ -29,5 +30,13 @@ public class FireStationService {
       throw new EntityAlreadyExistsException(message);
     }
     fireStationRepository.saveFireStation(fireStation);
+  }
+
+  public void updateFireStation(FireStation fireStation) {
+    if(!fireStationRepository.existsByAddress(fireStation.getAddress())) {
+      String message = "fire station with address [" + fireStation.getAddress() + "] does not exist !";
+      throw new EntityNotFoundException(message);
+    }
+    fireStationRepository.updateFireStation(fireStation);
   }
 }

@@ -31,4 +31,12 @@ public class FireStationController {
     );
   }
 
+  @PutMapping(path = "", produces = "application/json")
+  public ResponseEntity<String> updateFireStation(@RequestBody FireStation fireStation) {
+    fireStationService.updateFireStation(fireStation);
+    return ResponseUtil.created(
+            "Fire station updated successfully"
+    );
+  }
+
 }
