@@ -1,4 +1,4 @@
-package com.mr486.safetynet.tools;
+package com.mr486.safetynet.tools.json_file;
 
 import com.mr486.safetynet.model.FireStation;
 import com.mr486.safetynet.model.MedicalRecord;

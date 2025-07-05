@@ -1,8 +1,8 @@
 package com.mr486.safetynet.repository;
 
 import com.mr486.safetynet.model.FireStation;
-import com.mr486.safetynet.tools.DataBinding;
-import com.mr486.safetynet.tools.JsonDataLoader;
+import com.mr486.safetynet.tools.json_file.DataBinding;
+import com.mr486.safetynet.tools.json_file.JsonDataLoader;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -109,7 +109,7 @@ public class FireStationRepositoryImplJson implements FireStationRepository {
    * @throws IllegalArgumentException if the fire station is null or already exists.
    */
   @Override
-  public FireStation addfireStation(FireStation fireStation) {
+  public FireStation saveFireStation(FireStation fireStation) {
     if (fireStation == null) {
       throw new IllegalArgumentException("Firestation must not be null");
     }

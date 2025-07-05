@@ -1,4 +1,4 @@
-package com.mr486.safetynet.tools;
+package com.mr486.safetynet.tools.network;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

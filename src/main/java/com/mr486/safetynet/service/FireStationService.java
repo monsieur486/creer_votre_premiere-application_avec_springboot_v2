@@ -110,7 +110,7 @@ public class FireStationService {
       );
     }
 
-    fireStationRepository.addfireStation(fireStation);
+    fireStationRepository.saveFireStation(fireStation);
 
     return fireStation;
   }

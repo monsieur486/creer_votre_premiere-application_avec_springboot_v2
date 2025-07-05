@@ -1,4 +1,4 @@
-package com.mr486.safetynet.tools;
+package com.mr486.safetynet.tools.json_file;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;

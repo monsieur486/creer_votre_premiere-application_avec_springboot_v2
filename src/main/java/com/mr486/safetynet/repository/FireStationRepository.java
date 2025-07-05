@@ -3,6 +3,7 @@ package com.mr486.safetynet.repository;
 import com.mr486.safetynet.model.FireStation;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Interface for managing fire station data.
@@ -31,23 +32,21 @@ public interface FireStationRepository {
    * @param address the address of the fire station.
    * @return the fire station matching the given address, or null if not found.
    */
-  FireStation getFireStationByAddress(String address);
+  Optional<FireStation>  getFireStationByAddress(String address);
 
   /**
    * Adds a new fire station.
    *
    * @param fireStation the fire station to add.
-   * @return the added fire station.
    */
-  FireStation addfireStation(FireStation fireStation);
+  void saveFireStation(FireStation fireStation);
 
   /**
    * Updates an existing fire station.
    *
    * @param fireStation the fire station with updated information.
-   * @return the updated fire station, or null if the fire station does not exist.
    */
-  FireStation updateFireStation(FireStation fireStation);
+  void updateFireStation(FireStation fireStation);
 
   /**
    * Deletes a fire station.
@@ -55,12 +54,4 @@ public interface FireStationRepository {
    * @param fireStation the fire station to delete.
    */
   void deletefireStation(FireStation fireStation);
-
-  /**
-   * Checks if a fire station exists by its address.
-   *
-   * @param address the address to check.
-   * @return true if a fire station exists at the given address, false otherwise.
-   */
-  Boolean existByAddress(String address);
 }

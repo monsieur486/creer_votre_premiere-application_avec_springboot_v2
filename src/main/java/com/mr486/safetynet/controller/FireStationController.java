@@ -2,8 +2,8 @@ package com.mr486.safetynet.controller;
 
 import com.mr486.safetynet.model.FireStation;
 import com.mr486.safetynet.service.FireStationService;
-import com.mr486.safetynet.tools.ApiResponse;
-import com.mr486.safetynet.tools.ResponseUtil;
+import com.mr486.safetynet.tools.network.ApiResponse;
+import com.mr486.safetynet.tools.network.ResponseUtil;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
