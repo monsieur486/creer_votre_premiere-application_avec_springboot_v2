@@ -39,4 +39,12 @@ public class FireStationService {
     }
     fireStationRepository.updateFireStation(fireStation);
   }
+
+  public void deleteFireStation(FireStation fireStation) {
+    if(!fireStationRepository.existsByAddress(fireStation.getAddress())) {
+      String message = "fire station with address [" + fireStation.getAddress() + "] does not exist !";
+      throw new EntityNotFoundException(message);
+    }
+    fireStationRepository.deletefireStation(fireStation);
+  }
 }

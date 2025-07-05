@@ -39,4 +39,12 @@ public class FireStationController {
     );
   }
 
+  @DeleteMapping
+  public ResponseEntity<String> deleteFireStation(@RequestBody FireStation fireStation) {
+    fireStationService.deleteFireStation(fireStation);
+    return ResponseUtil.success(
+            "Fire station deleted successfully"
+    );
+  }
+
 }
