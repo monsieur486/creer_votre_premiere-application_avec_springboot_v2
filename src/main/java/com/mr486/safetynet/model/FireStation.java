@@ -1,4 +1,4 @@
-package com.mr486.safetynet.domain.domain_firestation.model;
+package com.mr486.safetynet.model;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

@@ -1,6 +1,6 @@
-package com.mr486.safetynet.domain.domain_firestation.repository;
+package com.mr486.safetynet.repository;
 
-import com.mr486.safetynet.domain.domain_firestation.model.FireStation;
+import com.mr486.safetynet.model.FireStation;
 
 import java.util.List;
 

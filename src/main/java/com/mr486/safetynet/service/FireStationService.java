@@ -1,9 +1,9 @@
-package com.mr486.safetynet.domain.domain_firestation.service;
+package com.mr486.safetynet.service;
 
-import com.mr486.safetynet.domain.domain_firestation.expetion.FireStationAlreadyExistsException;
-import com.mr486.safetynet.domain.domain_firestation.expetion.FireStationNotFoundException;
-import com.mr486.safetynet.domain.domain_firestation.model.FireStation;
-import com.mr486.safetynet.domain.domain_firestation.repository.FireStationRepository;
+import com.mr486.safetynet.expetion.EntityAlreadyExistsException;
+import com.mr486.safetynet.expetion.EntityNotFoundException;
+import com.mr486.safetynet.model.FireStation;
+import com.mr486.safetynet.repository.FireStationRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,16 +13,16 @@ import java.util.List;
  * Provides methods for managing fire stations, including CRUD operations and validations.
  */
 @Service
-public class FireStationServiceImpl implements FireStationService {
+public class FireStationService {
 
   private final FireStationRepository fireStationRepository;
 
   /**
-   * Constructor for FireStationServiceImpl.
+   * Constructor for FireStationService.
    *
    * @param fireStationRepository the repository used for fire station data access
    */
-  public FireStationServiceImpl(FireStationRepository fireStationRepository) {
+  public FireStationService(FireStationRepository fireStationRepository) {
     this.fireStationRepository = fireStationRepository;
   }
 
@@ -31,7 +31,6 @@ public class FireStationServiceImpl implements FireStationService {
    *
    * @return a list of all fire stations
    */
-  @Override
   public List<FireStation> getAllFireStations() {
     return fireStationRepository.getAllFireStations();
   }
@@ -43,7 +42,6 @@ public class FireStationServiceImpl implements FireStationService {
    * @param stationNumber the station number to filter by
    * @return a list of fire stations with the specified station number
    */
-  @Override
   public List<FireStation> getFireStationsByStationNumber(Integer stationNumber) {
     if (stationNumber == null) {
       return fireStationRepository.getAllFireStations();
@@ -57,7 +55,6 @@ public class FireStationServiceImpl implements FireStationService {
    * @param fireStation the fire station to check
    * @return true if the fire station exists, false otherwise
    */
-  @Override
   public Boolean exists(FireStation fireStation) {
     if (fireStation == null || fireStation.getAddress() == null || fireStation.getStation() == null) {
       return false;
@@ -73,7 +70,6 @@ public class FireStationServiceImpl implements FireStationService {
    * @param address the address to check
    * @return true if a fire station exists at the specified address, false otherwise
    */
-  @Override
   public Boolean existsByAddress(String address) {
     if (address == null || address.isEmpty()) {
       return false;
@@ -89,7 +85,6 @@ public class FireStationServiceImpl implements FireStationService {
    * @param address the address of the fire station
    * @return the fire station at the specified address, or null if not found
    */
-  @Override
   public FireStation getFireStationByAddress(String address) {
     if (address == null || address.isEmpty()) {
       return null;
@@ -106,10 +101,9 @@ public class FireStationServiceImpl implements FireStationService {
    * @return the added fire station
    * @throws IllegalArgumentException if a fire station with the same address already exists
    */
-  @Override
   public FireStation addFireStation(FireStation fireStation) {
     if (existsByAddress(fireStation.getAddress())) {
-      throw new FireStationAlreadyExistsException(
+      throw new EntityAlreadyExistsException(
           "Fire station with address "
                   + fireStation.getAddress()
                   + " already exists."
@@ -127,10 +121,9 @@ public class FireStationServiceImpl implements FireStationService {
    * @param fireStation the fire station with updated data
    * @return the updated fire station
    */
-  @Override
   public FireStation updateFireStation(FireStation fireStation) {
     if(!exists(fireStation)) {
-      throw  new FireStationNotFoundException(
+      throw  new EntityNotFoundException(
               "Fire station with address "
                       + fireStation.getAddress()
                       + " does not exist.");
@@ -146,10 +139,9 @@ public class FireStationServiceImpl implements FireStationService {
    * @param fireStation the fire station to delete
    * @throws IllegalArgumentException if the fire station or its address is null, or if it does not exist
    */
-  @Override
   public void deleteFireStation(FireStation fireStation) {
     if(!exists(fireStation)) {
-      throw  new FireStationNotFoundException(
+      throw  new EntityNotFoundException(
               "Fire station with address "
                       + fireStation.getAddress()
                       + " does not exist.");

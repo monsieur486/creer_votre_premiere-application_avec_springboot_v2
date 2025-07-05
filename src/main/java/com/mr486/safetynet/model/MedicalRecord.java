@@ -1,4 +1,4 @@
-package com.mr486.safetynet.domain.domain_medicalrecords.model;
+package com.mr486.safetynet.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

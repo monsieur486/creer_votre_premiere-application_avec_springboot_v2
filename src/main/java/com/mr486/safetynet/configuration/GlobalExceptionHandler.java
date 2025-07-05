@@ -1,14 +1,12 @@
 package com.mr486.safetynet.configuration;
 
-import com.mr486.safetynet.domain.domain_firestation.expetion.FireStationAlreadyExistsException;
-import com.mr486.safetynet.domain.domain_firestation.expetion.FireStationNotFoundException;
+import com.mr486.safetynet.expetion.EntityAlreadyExistsException;
+import com.mr486.safetynet.expetion.EntityNotFoundException;
 import com.mr486.safetynet.tools.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
-import java.util.Map;
 
 /**
  * Global exception handler for the application.
@@ -19,14 +17,14 @@ import java.util.Map;
 public class GlobalExceptionHandler {
 
   /**
-   * Handles FireStationAlreadyExistsException.
+   * Handles EntityAlreadyExistsException.
    * Returns an HTTP 400 (Bad Request) response with an error message.
    *
    * @param ex the thrown exception
    * @return ResponseEntity containing an ApiResponse with error details
    */
-  @ExceptionHandler(FireStationAlreadyExistsException.class)
-  public ResponseEntity<ApiResponse<String>> handleAlreadyExists(FireStationAlreadyExistsException ex) {
+  @ExceptionHandler(EntityAlreadyExistsException.class)
+  public ResponseEntity<ApiResponse<String>> handleAlreadyExists(EntityAlreadyExistsException ex) {
     ApiResponse<String> response = new ApiResponse<>(
             HttpStatus.BAD_REQUEST,
             "Bad request: " + ex.getMessage(),
@@ -36,14 +34,14 @@ public class GlobalExceptionHandler {
   }
 
   /**
-   * Handles FireStationNotFoundException.
+   * Handles EntityNotFoundException.
    * Returns an HTTP 404 (Not Found) response with an error message.
    *
    * @param ex the thrown exception
    * @return ResponseEntity containing an ApiResponse with error details
    */
-  @ExceptionHandler(FireStationNotFoundException.class)
-  public ResponseEntity<ApiResponse<String>> handleNotFound(FireStationNotFoundException ex) {
+  @ExceptionHandler(EntityNotFoundException.class)
+  public ResponseEntity<ApiResponse<String>> handleNotFound(EntityNotFoundException ex) {
     ApiResponse<String> response = new ApiResponse<>(
             HttpStatus.NOT_FOUND,
             "Not found: " + ex.getMessage(),

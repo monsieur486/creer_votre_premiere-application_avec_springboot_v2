@@ -1,7 +1,7 @@
-package com.mr486.safetynet.domain.domain_firestation.controller;
+package com.mr486.safetynet.controller;
 
-import com.mr486.safetynet.domain.domain_firestation.model.FireStation;
-import com.mr486.safetynet.domain.domain_firestation.service.FireStationService;
+import com.mr486.safetynet.model.FireStation;
+import com.mr486.safetynet.service.FireStationService;
 import com.mr486.safetynet.tools.ApiResponse;
 import com.mr486.safetynet.tools.ResponseUtil;
 import jakarta.validation.Valid;
@@ -31,6 +31,7 @@ public class FireStationController {
                     "Fire stations retrieved successfully",
                     fireStations));
   }
+
 
   @PostMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<ApiResponse<FireStation>> addFirestation(@Valid @RequestBody FireStation fireStation) {

@@ -1,4 +1,4 @@
-package com.mr486.safetynet.domain.domain_person.model;
+package com.mr486.safetynet.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
