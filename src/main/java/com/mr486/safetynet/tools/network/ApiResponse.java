@@ -3,6 +3,7 @@ package com.mr486.safetynet.tools.network;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 /**
  * Generic API response class for standardizing HTTP responses.
@@ -39,5 +40,9 @@ public class ApiResponse<T> {
     this.status = status;
     this.message = message;
     this.data = data;
+  }
+
+  public ResponseEntity<ApiResponse<T>> createResponse() {
+    return new ResponseEntity<>(this, status);
   }
 }
