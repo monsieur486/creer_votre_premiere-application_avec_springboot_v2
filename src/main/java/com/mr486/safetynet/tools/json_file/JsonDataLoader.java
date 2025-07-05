@@ -2,10 +2,10 @@ package com.mr486.safetynet.tools.json_file;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
-import java.io.IOException;
 
 /**
  * Component responsible for loading data from a JSON file.
@@ -15,30 +15,25 @@ import java.io.IOException;
 @Slf4j
 public class JsonDataLoader {
 
+  @Value("${json.file.path}")
+  String dataFilePath;
+
   /**
    * Loads data from a specified JSON file path and maps it to a DataBinding object.
    *
-   * @param filePath the path to the JSON file to be loaded
    * @return a DataBinding object containing the deserialized data
    * @throws RuntimeException if the file is not found or an error occurs while reading the file
    */
-  public DataBinding loadData(String filePath) {
+  public DataBinding loadData() {
     ObjectMapper mapper = new ObjectMapper();
-    File file = new File(filePath);
 
-    // Check if the file exists, log an error, and throw an exception if it does not
-    if (!file.exists()) {
-      log.error("File not found: {}", filePath);
-      throw new RuntimeException("File not found : " + filePath);
-    }
+    DataBinding dataBinding = new DataBinding();
 
     try {
-      // Attempt to read and map the JSON file to a DataBinding object
+      File file = new File(dataFilePath);
       return mapper.readValue(file, DataBinding.class);
-    } catch (IOException e) {
-      // Log the error and throw a runtime exception if an I/O error occurs
-      log.error("Error reading JSON file: {}", e.getMessage());
-      throw new RuntimeException("Error while reading the JSON file: " + e.getMessage(), e);
+    } catch (Exception e) {
+      throw new RuntimeException("Error reading json file:" +dataFilePath + " message: "+ e.getMessage());
     }
   }
 }

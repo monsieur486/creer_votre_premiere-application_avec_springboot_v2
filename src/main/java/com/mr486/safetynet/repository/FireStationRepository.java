@@ -54,4 +54,12 @@ public interface FireStationRepository {
    * @param fireStation the fire station to delete.
    */
   void deletefireStation(FireStation fireStation);
+
+  /**
+   * Checks if a fire station exists by its address.
+   *
+   * @param address the address to check.
+   * @return true if a fire station exists at the given address, false otherwise.
+   */
+  Boolean existsByAddress(String address);
 }

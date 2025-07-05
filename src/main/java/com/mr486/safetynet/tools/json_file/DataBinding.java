@@ -4,9 +4,9 @@ import com.mr486.safetynet.model.FireStation;
 import com.mr486.safetynet.model.MedicalRecord;
 import com.mr486.safetynet.model.Person;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,7 +15,6 @@ import java.util.List;
  */
 @Component
 @Data
-@NoArgsConstructor
 public class DataBinding {
 
   /**
@@ -32,4 +31,10 @@ public class DataBinding {
    * A list of medical records.
    */
   List<MedicalRecord> medicalrecords;
+
+  public DataBinding() {
+    this.persons = new ArrayList<>();
+    this.firestations = new ArrayList<>();
+    this.medicalrecords = new ArrayList<>();
+  }
 }
