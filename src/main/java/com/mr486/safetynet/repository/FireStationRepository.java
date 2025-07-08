@@ -5,6 +5,10 @@ import com.mr486.safetynet.model.FireStation;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Repository interface for managing fire stations.
+ * Provides methods to retrieve, add, update, and delete fire station records.
+ */
 public interface FireStationRepository {
   /**
    * Retrieves fire stations by their station number.
