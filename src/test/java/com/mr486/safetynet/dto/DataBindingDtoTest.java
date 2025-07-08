@@ -66,7 +66,7 @@ class DataBindingDtoTest {
    */
   @Test
   void setFirestations_shouldUpdateFirestationsList() {
-    List<FireStation> firestations = List.of(new FireStation("123 Street", 1 ));
+    List<FireStation> firestations = List.of(new FireStation("123 Street", 1));
     dataBindingDto.setFirestations(firestations);
     assertEquals(firestations, dataBindingDto.getFirestations());
   }
