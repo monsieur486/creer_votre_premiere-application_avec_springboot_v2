@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import java.util.List;
 import java.util.Map;
@@ -85,5 +86,20 @@ class GlobalExceptionHandlerTest {
 
     assertEquals(500, response.getStatusCodeValue());
     assertEquals("❌ Internal server error: Unexpected error", response.getBody());
+  }
+
+  /**
+   * Verifies that handleNoHandlerFoundException returns a 404 Not Found
+   * with the appropriate error message.
+   */
+  @Test
+  void handlePageNotFound__shouldReturnNotFoundWithErrorMessage() {
+    NoHandlerFoundException exception = new NoHandlerFoundException("Page not found", "Page1", null);
+
+    GlobalExceptionHandler handler = new GlobalExceptionHandler();
+    ResponseEntity<String> response = handler.handleNoHandlerFoundException(exception);
+
+    assertEquals(404, response.getStatusCodeValue());
+    assertEquals("❌ Page not found: Page1", response.getBody());
   }
 }
