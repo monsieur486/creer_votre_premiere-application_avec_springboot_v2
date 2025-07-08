@@ -30,6 +30,7 @@ public class MedicalRecord {
   /**
    * The birthdate of the person in the format "MM/dd/yyyy".
    */
+  @NotBlank(message = "birthdate cannot be blank")
   private String birthdate;
 
   /**
