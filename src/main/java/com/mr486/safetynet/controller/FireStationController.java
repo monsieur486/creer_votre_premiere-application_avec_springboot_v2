@@ -1,5 +1,6 @@
 package com.mr486.safetynet.controller;
 
+import com.mr486.safetynet.dto.FireStationDto;
 import com.mr486.safetynet.model.FireStation;
 import com.mr486.safetynet.service.FireStationService;
 import com.mr486.safetynet.tools.ResponseUtil;
@@ -50,14 +51,14 @@ public class FireStationController {
   /**
    * Deletes a fire station by its address.
    *
-   * @param address The address of the fire station to be deleted. Must be valid.
+   * @param fireStation The FireStation object with updated information. Must be valid.
    * @return ResponseEntity containing a success message.
    */
   @DeleteMapping(path = "", produces = "application/json")
-  public ResponseEntity<String> deleteFireStationByAddress(@RequestBody @Valid String address) {
-    fireStationService.deleteFireStationByAddress(address);
+  public ResponseEntity<String> deleteFireStationByAddress(@RequestBody @Valid FireStationDto fireStation) {
+    fireStationService.deleteFireStationByAddress(fireStation.getAddress());
     return ResponseUtil.success(
-            "Fire station deleted successfully for address: " + address
+            "Fire station deleted successfully for address: " + fireStation.getAddress()
     );
   }
 }

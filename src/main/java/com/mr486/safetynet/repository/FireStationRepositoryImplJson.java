@@ -107,7 +107,8 @@ public class FireStationRepositoryImplJson implements FireStationRepository {
    */
   @Override
   public void deleteFireStationByAddress(String address) {
-    fireStations.removeIf(fireStation -> fireStation.getAddress().equalsIgnoreCase(address));
+    String addressLowerCase = address.toLowerCase();
+    fireStations.removeIf(fireStation -> fireStation.getAddress().equalsIgnoreCase(addressLowerCase));
   }
 
   /**
@@ -118,7 +119,8 @@ public class FireStationRepositoryImplJson implements FireStationRepository {
    */
   @Override
   public Boolean existsByAddress(String address) {
+    String addressLowerCase = address.toLowerCase();
     return fireStations.stream()
-            .anyMatch(fireStation -> fireStation.getAddress().equalsIgnoreCase(address));
+            .anyMatch(fireStation -> fireStation.getAddress().equalsIgnoreCase(addressLowerCase));
   }
 }

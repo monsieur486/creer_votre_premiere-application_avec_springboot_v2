@@ -1,5 +1,6 @@
 package com.mr486.safetynet.controller;
 
+import com.mr486.safetynet.dto.FireStationDto;
 import com.mr486.safetynet.model.FireStation;
 import com.mr486.safetynet.service.FireStationService;
 import org.junit.jupiter.api.BeforeEach;
@@ -65,11 +66,10 @@ class FireStationControllerTest {
    */
   @Test
   void deleteFireStationByAddress_shouldDeleteFireStationSuccessfully() {
-    String address = "Address1";
+    FireStationDto fireStation = new FireStationDto("Address1");
+    ResponseEntity<String> response = fireStationController.deleteFireStationByAddress(fireStation);
 
-    ResponseEntity<String> response = fireStationController.deleteFireStationByAddress(address);
-
-    verify(mockFireStationService, times(1)).deleteFireStationByAddress(address);
+    verify(mockFireStationService, times(1)).deleteFireStationByAddress(fireStation.getAddress());
     assertEquals(200, response.getStatusCodeValue());
     assertEquals("Fire station deleted successfully for address: Address1", response.getBody());
   }
