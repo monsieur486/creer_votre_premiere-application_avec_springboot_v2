@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -61,6 +62,20 @@ public class GlobalExceptionHandler {
   public ResponseEntity<String> handleNotFound(EntityNotFoundException ex) {
     return ResponseUtil.badRequest(
             "❌ Entity not found: " + ex.getMessage()
+    );
+  }
+
+  /**
+   * Handles 404 errors when no handler is found for a request.
+   * Returns an HTTP 404 (Not Found) response with an error message.
+   *
+   * @param ex the thrown exception
+   * @return ResponseEntity containing an error message
+   */
+  @ExceptionHandler(NoHandlerFoundException.class)
+  public ResponseEntity<String> handleNoHandlerFoundException(NoHandlerFoundException ex) {
+    return ResponseUtil.notFound(
+            "❌ Page not found: " + ex.getRequestURL()
     );
   }
 
