@@ -3,6 +3,7 @@ package com.mr486.safetynet.dto;
 import com.mr486.safetynet.model.FireStation;
 import com.mr486.safetynet.model.MedicalRecord;
 import com.mr486.safetynet.model.Person;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import java.util.List;
  * This class is used to map JSON data to Java objects and utilizes Lombok annotations to reduce boilerplate code.
  */
 @Data
+@AllArgsConstructor
 public class DataBindingDto {
 
   /**
