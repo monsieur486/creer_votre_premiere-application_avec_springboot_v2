@@ -3,6 +3,7 @@ package com.mr486.safetynet.configuration;
 import com.mr486.safetynet.exeption.EntityAlreadyExistsException;
 import com.mr486.safetynet.exeption.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -94,7 +95,7 @@ class GlobalExceptionHandlerTest {
    */
   @Test
   void handlePageNotFound__shouldReturnNotFoundWithErrorMessage() {
-    NoHandlerFoundException exception = new NoHandlerFoundException("Page not found", "Page1", null);
+    NoHandlerFoundException exception = new NoHandlerFoundException("Page not found", "Page1", HttpHeaders.EMPTY);
 
     GlobalExceptionHandler handler = new GlobalExceptionHandler();
     ResponseEntity<String> response = handler.handleNoHandlerFoundException(exception);
