@@ -15,8 +15,8 @@ import java.io.File;
  * Utilizes Jackson's ObjectMapper to deserialize JSON into a DataBinding object.
  */
 @Slf4j
-@Component
 @Data
+@Component
 @RequiredArgsConstructor
 public class JsonDataReader {
 
