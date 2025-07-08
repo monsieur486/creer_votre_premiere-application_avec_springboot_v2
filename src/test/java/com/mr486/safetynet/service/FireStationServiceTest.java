@@ -9,6 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -157,5 +158,24 @@ class FireStationServiceTest {
     });
 
     assertEquals("fire station with address [NonExistentAddress] does not exist !", exception.getMessage());
+  }
+
+  /**
+   * Verifies that getAllFireStationsByStationNumber returns all fire stations for a given station number.
+   */
+  @Test
+  void getAllFireStationsByStationNumber_shouldReturnAllFireStationsForGivenStationNumber() {
+    MockitoAnnotations.openMocks(this);
+    int stationNumber = 1;
+    FireStation fireStation1 = new FireStation("Address1", stationNumber);
+    FireStation fireStation2 = new FireStation("Address2", stationNumber);
+    when(mockFireStationRepository.getAllFireStationsByStationNumber(stationNumber))
+        .thenReturn(List.of(fireStation1, fireStation2));
+
+    List<FireStation> result = fireStationService.getAllFireStationsByStationNumber(1);
+
+    assertEquals(2, result.size());
+    assertTrue(result.contains(fireStation1));
+    assertTrue(result.contains(fireStation2));
   }
 }

@@ -81,7 +81,7 @@ public class FireStationService {
    * @param stationNumber the station number to filter fire stations.
    * @return a list of FireStation entities associated with the given station number.
    */
-  public List<FireStation> getAllFireStationsByStationNumer(Integer stationNumber) {
+  public List<FireStation> getAllFireStationsByStationNumber(Integer stationNumber) {
     return fireStationRepository.getAllFireStationsByStationNumber(stationNumber);
   }
 }
