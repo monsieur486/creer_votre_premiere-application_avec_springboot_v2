@@ -4,9 +4,18 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+/**
+ * Data Transfer Object representing a fire station.
+ * This DTO contains the address of a fire station and is used for data validation and transfer
+ * between layers of the application.
+ */
 @Data
 @AllArgsConstructor
 public class FireStationDto {
+  /**
+   * The address of the fire station.
+   * Must not be blank.
+   */
   @NotBlank(message = "Address cannot be blank")
   private String address;
 }
