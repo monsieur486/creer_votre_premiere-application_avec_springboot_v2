@@ -40,7 +40,7 @@ public class MedicalRecordController {
    * @param medicalRecord The MedicalRecord object with updated information. Must be valid.
    * @return ResponseEntity containing a success message.
    */
-  @PutMapping(path = "/update", produces = "application/json")
+  @PutMapping(path = "", produces = "application/json")
   public ResponseEntity<String> updateMedicalRecord(@RequestBody @Valid MedicalRecord medicalRecord) {
     medicalRecordService.updateMedicalRecord(medicalRecord);
     return ResponseUtil.created(
