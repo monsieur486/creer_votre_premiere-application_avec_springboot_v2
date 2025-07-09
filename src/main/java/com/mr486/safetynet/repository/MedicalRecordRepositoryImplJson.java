@@ -13,6 +13,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Implementation of the MedicalRecordRepository that uses JSON data storage.
+ * This repository provides methods to save, update, find, delete, and check the existence of medical records.
+ */
 @Repository
 @RequiredArgsConstructor
 @Slf4j

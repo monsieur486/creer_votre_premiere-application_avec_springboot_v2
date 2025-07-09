@@ -6,6 +6,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Data Transfer Object for MedicalRecord.
+ * This class is used to transfer medical record data between layers.
+ * It contains the first name and last name of a person.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
