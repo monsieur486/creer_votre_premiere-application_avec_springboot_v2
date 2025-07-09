@@ -113,7 +113,7 @@ public class MedicalRecordRepositoryImplJson implements MedicalRecordRepository 
   /**
    * Checks if a medical record DTO is equal to a medical record.
    *
-   * @param medicalRecord the medical record to compare
+   * @param medicalRecord    the medical record to compare
    * @param medicalRecordDto the DTO to compare
    * @return true if they are equal, false otherwise
    */

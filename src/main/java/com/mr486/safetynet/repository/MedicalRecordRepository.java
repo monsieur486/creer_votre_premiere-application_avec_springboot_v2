@@ -27,6 +27,7 @@ public interface MedicalRecordRepository {
 
   /**
    * Finds a medical record by first and last name.
+   *
    * @param medicalRecordDto the DTO containing the first and last name of the person
    * @return an Optional containing the found medical record, or empty if not found
    */
@@ -34,12 +35,14 @@ public interface MedicalRecordRepository {
 
   /**
    * Deletes a medical record from the repository.
+   *
    * @param medicalRecord the medical record to delete
    */
   void delete(MedicalRecord medicalRecord);
 
   /**
    * Checks if a medical record exists for a given person.
+   *
    * @param medicalRecordDto the DTO containing the first and last name of the person
    * @return true if the medical record exists, false otherwise
    */
