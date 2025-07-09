@@ -170,7 +170,7 @@ class FireStationServiceTest {
     FireStation fireStation1 = new FireStation("Address1", stationNumber);
     FireStation fireStation2 = new FireStation("Address2", stationNumber);
     when(mockFireStationRepository.getAllFireStationsByStationNumber(stationNumber))
-        .thenReturn(List.of(fireStation1, fireStation2));
+            .thenReturn(List.of(fireStation1, fireStation2));
 
     List<FireStation> result = fireStationService.getAllFireStationsByStationNumber(1);
 

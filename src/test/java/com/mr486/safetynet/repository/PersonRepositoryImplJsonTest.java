@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 /**
  * Unit tests for the PersonRepositoryImplJson class.
@@ -66,7 +66,7 @@ class PersonRepositoryImplJsonTest {
    * Verifies that the repository initializes with an empty list of persons if no data is loaded.
    */
   @Test
-  void init_shouldHandleExceptionAndKeepFireStationsEmpty(){
+  void init_shouldHandleExceptionAndKeepFireStationsEmpty() {
     MockitoAnnotations.openMocks(this);
     when(mockJsonDataReader.loadData()).thenThrow(new RuntimeException("JSON error"));
 
