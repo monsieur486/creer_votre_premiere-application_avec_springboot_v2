@@ -114,7 +114,7 @@ class MedicalRecordServiceTest {
 
     when(medicalRecordRepository.exists(medicalRecordDto1)).thenReturn(false);
 
-    assertThrows(EntityAlreadyExistsException.class, () -> medicalRecordService.updateMedicalRecord(medicalRecord));
+    assertThrows(EntityNotFoundException.class, () -> medicalRecordService.updateMedicalRecord(medicalRecord));
     verify(medicalRecordRepository, never()).save(any());
   }
 
