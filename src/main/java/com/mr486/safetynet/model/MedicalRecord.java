@@ -11,7 +11,6 @@ import java.util.ArrayList;
  * Represents a medical record containing personal and medical information.
  */
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
 public class MedicalRecord {
 
@@ -42,4 +41,13 @@ public class MedicalRecord {
    * A list of allergies the person has.
    */
   private ArrayList<String> allergies;
+
+  /**
+   * Default constructor for MedicalRecord.
+   * Initializes an empty MedicalRecord with empty lists for medications and allergies.
+   */
+  public MedicalRecord() {
+    this.medications = new ArrayList<>();
+    this.allergies = new ArrayList<>();
+  }
 }
