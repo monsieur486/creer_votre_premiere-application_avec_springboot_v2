@@ -14,6 +14,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
+/**
+ * Test class for PersonService
+ */
 class PersonServiceTest {
 
   private PersonRepository personRepository;
@@ -25,6 +28,9 @@ class PersonServiceTest {
     personService = new PersonService(personRepository);
   }
 
+  /**
+   * Test for getting a person by first name and last name
+   */
   @Test
   void testGetPersonByFirstNameAndLastName_found() {
     Person person = new Person();
@@ -39,6 +45,9 @@ class PersonServiceTest {
     verify(personRepository, times(1)).findByFirstNameAndLastName(dto);
   }
 
+  /**
+   * Test for getting a person by first name and last name when not found
+   */
   @Test
   void testSavePerson_success() {
     Person person = new Person();
@@ -53,6 +62,9 @@ class PersonServiceTest {
     verify(personRepository).save(person);
   }
 
+  /**
+   * Test for saving a person when already exists
+   */
   @Test
   void testSavePerson_alreadyExists() {
     Person person = new Person();
@@ -66,6 +78,9 @@ class PersonServiceTest {
     verify(personRepository, never()).save(any());
   }
 
+  /**
+   * Test for updating a person
+   */
   @Test
   void testUpdatePerson_success() {
     Person person = new Person();
@@ -80,6 +95,9 @@ class PersonServiceTest {
     verify(personRepository).update(person);
   }
 
+  /**
+   * Test for updating a person that does not exist
+   */
   @Test
   void testUpdatePerson_notFound() {
     Person person = new Person();
@@ -93,6 +111,9 @@ class PersonServiceTest {
     verify(personRepository, never()).update(any());
   }
 
+  /**
+   * Test for deleting a person
+   */
   @Test
   void testDeletePerson_success() {
     PersonDto dto = new PersonDto("John", "Doe");
@@ -103,6 +124,9 @@ class PersonServiceTest {
     verify(personRepository).delete(dto);
   }
 
+  /**
+   * Test for deleting a person that does not exist
+   */
   @Test
   void testDeletePerson_notFound() {
     PersonDto dto = new PersonDto("John", "Doe");
