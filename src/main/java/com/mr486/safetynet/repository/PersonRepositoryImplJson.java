@@ -58,12 +58,9 @@ public class PersonRepositoryImplJson implements PersonRepository {
    */
   @Override
   public void update(Person person) {
-    for (int i = 0; i < persons.size(); i++) {
-      if (persons.get(i).getFirstName().equals(person.getFirstName()) &&
-          persons.get(i).getLastName().equals(person.getLastName())) {
-        persons.set(i, person);
-      }
-    }
+    persons.replaceAll(existingPerson ->
+            isPersonDtoEqualPerson(existingPerson, new PersonDto(person.getFirstName(), person.getLastName())) ? person : existingPerson
+    );
   }
 
   /**
@@ -75,9 +72,8 @@ public class PersonRepositoryImplJson implements PersonRepository {
   @Override
   public Optional<Person> findByFirstNameAndLastName(PersonDto personDto) {
     return persons.stream()
-        .filter(person -> person.getFirstName().equals(personDto.getFirstName()) &&
-                          person.getLastName().equals(personDto.getLastName()))
-        .findFirst();
+            .filter(person -> isPersonDtoEqualPerson(person, personDto))
+            .findFirst();
   }
 
   /**
@@ -87,8 +83,7 @@ public class PersonRepositoryImplJson implements PersonRepository {
    */
   @Override
   public void delete(PersonDto personDto) {
-    persons.removeIf(person -> person.getFirstName().equals(personDto.getFirstName()) &&
-                               person.getLastName().equals(personDto.getLastName()));
+    persons.removeIf(person -> isPersonDtoEqualPerson(person, personDto));
   }
 
   /**
@@ -99,8 +94,11 @@ public class PersonRepositoryImplJson implements PersonRepository {
    */
   @Override
   public boolean exists(PersonDto personDto) {
-    return persons.stream()
-        .anyMatch(person -> person.getFirstName().equals(personDto.getFirstName()) &&
-                            person.getLastName().equals(personDto.getLastName()));
+    return persons.stream().anyMatch(person -> isPersonDtoEqualPerson(person, personDto));
+  }
+
+  private boolean isPersonDtoEqualPerson(Person person, PersonDto personDto) {
+    return person.getFirstName().equals(personDto.getFirstName()) &&
+            person.getLastName().equals(personDto.getLastName());
   }
 }
