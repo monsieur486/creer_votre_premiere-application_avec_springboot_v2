@@ -60,11 +60,11 @@ public class RequestResponseLoggingFilter extends OncePerRequestFilter {
     String headers = getHeadersAsString(request);
     String body = new String(request.getContentAsByteArray(), StandardCharsets.UTF_8);
 
-    log.info("==== Requête entrante ====");
-    log.info("Méthode: {}", method);
+    log.info("==== Incoming request ====");
+    log.info("Method: {}", method);
     log.info("URI: {}{}", uri, (query != null ? "?" + query : ""));
-    log.info("En-têtes: {}", headers);
-    log.info("Corps: {}", body);
+    log.info("Headers: {}", headers);
+    log.info("Body: {}", body);
   }
 
   /**
@@ -75,9 +75,9 @@ public class RequestResponseLoggingFilter extends OncePerRequestFilter {
   private void logResponse(ContentCachingResponseWrapper response) {
     String body = new String(response.getContentAsByteArray(), StandardCharsets.UTF_8);
 
-    log.info("==== Réponse sortante ====");
-    log.info("Statut HTTP: {}", response.getStatus());
-    log.info("Corps: {}", body);
+    log.info("==== Outgoing request ====");
+    log.info("Status: {}", response.getStatus());
+    log.info("Body: {}", body);
   }
 
   /**
