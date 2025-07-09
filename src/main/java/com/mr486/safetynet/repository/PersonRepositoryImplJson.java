@@ -13,6 +13,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Implementation of the PersonRepository that uses JSON data.
+ * This repository loads person data from a JSON file and provides methods
+ * to save, update, find, delete, and check existence of persons.
+ */
 @Repository
 @RequiredArgsConstructor
 @Slf4j

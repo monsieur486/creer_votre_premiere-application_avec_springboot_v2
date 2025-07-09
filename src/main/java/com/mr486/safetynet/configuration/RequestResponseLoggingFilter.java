@@ -14,6 +14,10 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Enumeration;
 
+/**
+ * A filter that logs the details of incoming HTTP requests and outgoing HTTP responses.
+ * It wraps the request and response to capture their content for logging purposes.
+ */
 @Slf4j
 @Configuration
 public class RequestResponseLoggingFilter extends OncePerRequestFilter {
