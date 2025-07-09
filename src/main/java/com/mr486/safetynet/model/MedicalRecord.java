@@ -50,4 +50,20 @@ public class MedicalRecord {
     this.medications = new ArrayList<>();
     this.allergies = new ArrayList<>();
   }
+
+  /**
+   * Constructor for MedicalRecord with first name, last name, and birthdate.
+   * Initializes empty lists for medications and allergies.
+   *
+   * @param firstName The first name of the person.
+   * @param lastName  The last name of the person.
+   * @param birthdate The birthdate of the person in the format "MM/dd/yyyy".
+   */
+  public MedicalRecord(String firstName, String lastName, String birthdate) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.birthdate = birthdate;
+    this.medications = new ArrayList<>();
+    this.allergies = new ArrayList<>();
+  }
 }
