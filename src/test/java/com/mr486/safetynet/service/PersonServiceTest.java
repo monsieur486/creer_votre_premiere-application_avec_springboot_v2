@@ -4,17 +4,14 @@ import com.mr486.safetynet.dto.PersonDto;
 import com.mr486.safetynet.exeption.EntityAlreadyExistsException;
 import com.mr486.safetynet.exeption.EntityNotFoundException;
 import com.mr486.safetynet.model.Person;
-import com.mr486.safetynet.repository.FireStationRepository;
 import com.mr486.safetynet.repository.PersonRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 class PersonServiceTest {
@@ -114,9 +111,6 @@ class PersonServiceTest {
     assertThrows(EntityNotFoundException.class, () -> personService.deletePerson(dto));
     verify(personRepository, never()).delete(any());
   }
-
-
-
 
 
 }
