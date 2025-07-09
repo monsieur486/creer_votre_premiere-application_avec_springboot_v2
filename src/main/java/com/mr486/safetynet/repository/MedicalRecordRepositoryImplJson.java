@@ -87,15 +87,12 @@ public class MedicalRecordRepositoryImplJson implements MedicalRecordRepository 
 
   /**
    * Deletes a medical record from the repository.
-   *
-   * @param medicalRecord the medical record to delete
+   * @param medicalRecord the DTO containing first name and last name of the medical record to delete
    */
   @Override
-  public void delete(MedicalRecord medicalRecord) {
+  public void delete(MedicalRecordDto medicalRecord) {
     medicalRecords.removeIf(existingMedicalRecord ->
-            isMedicRecordDtoEqualMedicalRecord(existingMedicalRecord, new MedicalRecordDto(medicalRecord.getFirstName(), medicalRecord.getLastName()))
-    );
-
+            isMedicRecordDtoEqualMedicalRecord(existingMedicalRecord, medicalRecord));
   }
 
   /**

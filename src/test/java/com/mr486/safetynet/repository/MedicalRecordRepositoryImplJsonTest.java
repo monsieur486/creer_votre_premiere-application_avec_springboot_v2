@@ -155,6 +155,7 @@ class MedicalRecordRepositoryImplJsonTest {
             "Doe",
             "01/01/1990"
     );
+    MedicalRecordDto medicalRecordDto = new MedicalRecordDto(medicalRecord);
     DataBindingDto dataBinding = new DataBindingDto();
     dataBinding.setMedicalrecords(List.of(medicalRecord));
     when(mockJsonDataReader.loadData()).thenReturn(dataBinding);
@@ -162,9 +163,9 @@ class MedicalRecordRepositoryImplJsonTest {
     medicalRecordRepository.init();
     medicalRecordRepository.save(medicalRecord);
 
-    medicalRecordRepository.delete(medicalRecord);
+    medicalRecordRepository.delete(medicalRecordDto);
 
-    Optional<MedicalRecord> result = medicalRecordRepository.findByFirstNameAndLastName(new MedicalRecordDto("John", "Doe"));
+    Optional<MedicalRecord> result = medicalRecordRepository.findByFirstNameAndLastName(medicalRecordDto);
     assertTrue(result.isEmpty());
   }
 

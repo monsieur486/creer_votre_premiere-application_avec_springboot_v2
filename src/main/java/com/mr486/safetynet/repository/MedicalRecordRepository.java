@@ -35,10 +35,10 @@ public interface MedicalRecordRepository {
 
   /**
    * Deletes a medical record from the repository.
-   *
-   * @param medicalRecord the medical record to delete
+    *
+   * @param medicalRecordDto the DTO containing the first and last name of the person whose record is to be deleted
    */
-  void delete(MedicalRecord medicalRecord);
+  void delete(MedicalRecordDto medicalRecordDto);
 
   /**
    * Checks if a medical record exists for a given person.
