@@ -30,8 +30,10 @@ class PersonServiceTest {
 
   @Test
   void testGetPersonByFirstNameAndLastName_found() {
-    PersonDto dto = new PersonDto("John", "Doe");
     Person person = new Person();
+    person.setFirstName("John");
+    person.setLastName("Doe");
+    PersonDto dto = new PersonDto(person);
     when(personRepository.findByFirstNameAndLastName(dto)).thenReturn(Optional.of(person));
 
     Optional<Person> result = personService.getPersonByFirstNameAndLastName(dto);
@@ -46,7 +48,7 @@ class PersonServiceTest {
     person.setFirstName("Jane");
     person.setLastName("Smith");
 
-    PersonDto dto = new PersonDto("Jane", "Smith");
+    PersonDto dto = new PersonDto(person);
     when(personRepository.exists(dto)).thenReturn(false);
 
     personService.savePerson(person);
@@ -60,7 +62,7 @@ class PersonServiceTest {
     person.setFirstName("Jane");
     person.setLastName("Smith");
 
-    PersonDto dto = new PersonDto("Jane", "Smith");
+    PersonDto dto = new PersonDto(person);
     when(personRepository.exists(dto)).thenReturn(true);
 
     assertThrows(EntityAlreadyExistsException.class, () -> personService.savePerson(person));
@@ -73,7 +75,7 @@ class PersonServiceTest {
     person.setFirstName("Jake");
     person.setLastName("Johnson");
 
-    PersonDto dto = new PersonDto("Jake", "Johnson");
+    PersonDto dto = new PersonDto(person);
     when(personRepository.exists(dto)).thenReturn(true);
 
     personService.updatePerson(person);
@@ -87,7 +89,7 @@ class PersonServiceTest {
     person.setFirstName("Jake");
     person.setLastName("Johnson");
 
-    PersonDto dto = new PersonDto("Jake", "Johnson");
+    PersonDto dto = new PersonDto(person);
     when(personRepository.exists(dto)).thenReturn(false);
 
     assertThrows(EntityNotFoundException.class, () -> personService.updatePerson(person));
