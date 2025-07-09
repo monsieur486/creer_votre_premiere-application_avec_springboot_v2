@@ -31,6 +31,7 @@ public class PersonDto {
   /**
    * Default constructor for PersonDto.
    * Initializes an empty PersonDto.
+   *
    * @param person the Person object to initialize the DTO from.
    */
   public PersonDto(Person person) {
