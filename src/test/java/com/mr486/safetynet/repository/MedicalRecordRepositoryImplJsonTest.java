@@ -42,13 +42,14 @@ class MedicalRecordRepositoryImplJsonTest {
             "Doe",
             "01/01/1990"
     );
+    MedicalRecordDto medicalRecordDto = new MedicalRecordDto(medicalRecord);
     DataBindingDto dataBinding = new DataBindingDto();
     dataBinding.setMedicalrecords(List.of(medicalRecord));
     when(mockJsonDataReader.loadData()).thenReturn(dataBinding);
 
     medicalRecordRepository.init();
 
-    Optional<MedicalRecord> result = medicalRecordRepository.findByFirstNameAndLastName(new MedicalRecordDto("John", "Doe"));
+    Optional<MedicalRecord> result = medicalRecordRepository.findByFirstNameAndLastName(medicalRecordDto);
     assertTrue(result.isPresent());
     assertEquals("John", result.get().getFirstName());
     assertEquals("Doe", result.get().getLastName());
@@ -240,15 +241,14 @@ class MedicalRecordRepositoryImplJsonTest {
 
     MedicalRecord nonExistentRecord = new MedicalRecord(
             "Jane",
-            "Doe",
+            "Smith",
             "02/02/1992"
     );
-    medicalRecordRepository.update(medicalRecord);
+    medicalRecordRepository.update(nonExistentRecord);
 
     Optional<MedicalRecord> result = medicalRecordRepository.findByFirstNameAndLastName(new MedicalRecordDto("John", "Doe"));
     assertTrue(result.isPresent());
-    assertEquals("01/01/1990", result.get().getBirthdate(), "Expected birthdate to remain unchanged");
-
+    assertEquals("01/01/1990", result.get().getBirthdate());
   }
 
 }
