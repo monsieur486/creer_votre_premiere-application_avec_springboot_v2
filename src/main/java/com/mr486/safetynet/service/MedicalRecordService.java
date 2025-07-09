@@ -21,8 +21,9 @@ public class MedicalRecordService {
 
   private final MedicalRecordRepository medicalRecordRepository;
 
-  @Value("{medical.records.adult.age}")
-  Integer MINIMUM_AGE = 18;
+  @Value("${min.adult.age}")
+  Integer adultAge;
+
 
   /**
    * Retrieves a medical record by first name and last name.
@@ -76,12 +77,22 @@ public class MedicalRecordService {
   }
 
   /**
-   * Checks if a medical record indicates that the person is an adult (18 years or older).
+   * Checks if a medical record belongs to an adult based on the birthdate.
    *
    * @param medicalRecord the MedicalRecord object to check
    * @return true if the person is an adult, false otherwise
    */
-  public Boolean isAdult(MedicalRecord medicalRecord) {
-    return medicalRecord.getAge() >= MINIMUM_AGE;
+  private Boolean isAdult(MedicalRecord medicalRecord) {
+    if (medicalRecord.getBirthdate() == null || medicalRecord.getBirthdate().isEmpty()) {
+      return false;
+    }
+    try {
+      String[] birthDateParts = medicalRecord.getBirthdate().split("/");
+      int birthYear = Integer.parseInt(birthDateParts[2]);
+      int currentYear = java.time.LocalDate.now().getYear();
+      return (currentYear - birthYear) >= adultAge;
+    } catch (Exception e) {
+      throw new IllegalArgumentException("Invalid birthdate format: " + medicalRecord.getBirthdate());
+    }
   }
 }
