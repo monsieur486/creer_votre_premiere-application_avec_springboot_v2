@@ -1,28 +1,106 @@
 package com.mr486.safetynet.repository;
 
+import com.mr486.safetynet.dto.DataBindingDto;
 import com.mr486.safetynet.dto.PersonDto;
 import com.mr486.safetynet.model.Person;
+import com.mr486.safetynet.tools.JsonDataReader;
+import jakarta.annotation.PostConstruct;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Repository;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
+@Repository
+@RequiredArgsConstructor
+@Slf4j
 public class PersonRepositoryImplJson implements PersonRepository {
+
+  /**
+   * The JSON data reader used to load fire station data.
+   */
+  private final JsonDataReader jsonDataReader;
+
+  private List<Person> persons = Collections.emptyList();
+
+  /**
+   * Initializes the repository by loading people data from a JSON file.
+   * This method is called automatically after the bean is constructed.
+   */
+  @PostConstruct
+  void init() {
+    log.warn("Persons data loading from json file");
+    try {
+      DataBindingDto dataBinding = jsonDataReader.loadData();
+      persons = new java.util.ArrayList<>(dataBinding.getPersons());
+      log.warn("✅ Persons data loaded successfully, count: {}", persons.size());
+    } catch (Exception e) {
+      log.error("❌ {}", e.getMessage());
+    }
+  }
+
+
+  /**
+   * Saves a person to the repository.
+   * @param person the person to save
+   */
   @Override
   public void save(Person person) {
-
+    persons.add(person);
   }
 
+  /**
+   * Updates an existing person in the repository.
+   *
+   * @param person the person to update
+   */
   @Override
   public void update(Person person) {
-
+    for (int i = 0; i < persons.size(); i++) {
+      if (persons.get(i).getFirstName().equals(person.getFirstName()) &&
+          persons.get(i).getLastName().equals(person.getLastName())) {
+        persons.set(i, person);
+      }
+    }
   }
 
+  /**
+   * Finds a person by their first and last name.
+   *
+   * @param personDto the DTO containing the first and last name
+   * @return an Optional containing the found person, or empty if not found
+   */
   @Override
   public Optional<Person> findByFirstNameAndLastName(PersonDto personDto) {
-    return Optional.empty();
+    return persons.stream()
+        .filter(person -> person.getFirstName().equals(personDto.getFirstName()) &&
+                          person.getLastName().equals(personDto.getLastName()))
+        .findFirst();
   }
 
+  /**
+   * Deletes a person from the repository.
+   *
+   * @param personDto the DTO containing the first and last name of the person to delete
+   */
   @Override
   public void delete(PersonDto personDto) {
+    persons.removeIf(person -> person.getFirstName().equals(personDto.getFirstName()) &&
+                               person.getLastName().equals(personDto.getLastName()));
+  }
 
+  /**
+   * Checks if a person exists in the repository.
+   *
+   * @param personDto the DTO containing the first and last name of the person to check
+   * @return true if the person exists, false otherwise
+   */
+  @Override
+  public boolean exists(PersonDto personDto) {
+    return persons.stream()
+        .anyMatch(person -> person.getFirstName().equals(personDto.getFirstName()) &&
+                            person.getLastName().equals(personDto.getLastName()));
   }
 }
