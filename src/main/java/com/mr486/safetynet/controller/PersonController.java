@@ -40,7 +40,7 @@ public class PersonController {
    * @param person The Person object with updated information. Must be valid.
    * @return ResponseEntity containing a success message.
    */
-  @PutMapping(path = "/update", produces = "application/json")
+  @PutMapping(path = "", produces = "application/json")
   public ResponseEntity<String> updatePerson(@RequestBody @Valid Person person) {
     personService.updatePerson(person);
     return ResponseUtil.created(
