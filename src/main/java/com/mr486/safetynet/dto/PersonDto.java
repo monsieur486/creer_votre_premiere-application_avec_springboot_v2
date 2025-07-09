@@ -1,5 +1,6 @@
 package com.mr486.safetynet.dto;
 
+import com.mr486.safetynet.model.Person;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
