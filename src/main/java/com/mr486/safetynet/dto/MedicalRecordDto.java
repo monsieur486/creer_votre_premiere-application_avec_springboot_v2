@@ -1,0 +1,36 @@
+package com.mr486.safetynet.dto;
+
+import com.mr486.safetynet.model.MedicalRecord;
+import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class MedicalRecordDto {
+
+  /**
+   * The first name of the person.
+   */
+  @NotBlank(message = "firstname cannot be blank")
+  private String firstName;
+
+  /**
+   * The last name of the person.
+   */
+  @NotBlank(message = "lastname cannot be blank")
+  private String lastName;
+
+  /**
+   * Default constructor for MedicalRecordDto.
+   * Initializes an empty MedicalRecordDto.
+   *
+   * @param medicalRecord the MedicalRecord object to initialize the DTO from.
+   */
+  public MedicalRecordDto(MedicalRecord medicalRecord) {
+    this.firstName = medicalRecord.getFirstName();
+    this.lastName = medicalRecord.getLastName();
+  }
+}
