@@ -65,4 +65,22 @@ public class MedicalRecord {
     this.medications = new ArrayList<>();
     this.allergies = new ArrayList<>();
   }
+
+  /**
+   * Calculates the age of the person based on their birthdate.
+   *
+   * @return The age of the person.
+   * @throws IllegalArgumentException if the birthdate format is invalid.
+   */
+  public int getAge() {
+    String[] parts = birthdate.split("/");
+    if (parts.length != 3) {
+      throw new IllegalArgumentException("Invalid birthdate format. Expected format: MM/dd/yyyy");
+    }
+
+    int birthYear = Integer.parseInt(parts[2]);
+    int currentYear = java.time.Year.now().getValue();
+
+    return currentYear - birthYear;
+  }
 }

@@ -6,6 +6,7 @@ import com.mr486.safetynet.exeption.EntityNotFoundException;
 import com.mr486.safetynet.model.MedicalRecord;
 import com.mr486.safetynet.repository.MedicalRecordRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -19,6 +20,9 @@ import java.util.Optional;
 public class MedicalRecordService {
 
   private final MedicalRecordRepository medicalRecordRepository;
+
+  @Value("{medical.records.adult.age}")
+  Integer MINIMUM_AGE = 18;
 
   /**
    * Retrieves a medical record by first name and last name.
@@ -69,5 +73,15 @@ public class MedicalRecordService {
       throw new EntityNotFoundException(message);
     }
     medicalRecordRepository.delete(medicalRecordDto);
+  }
+
+  /**
+   * Checks if a medical record indicates that the person is an adult (18 years or older).
+   *
+   * @param medicalRecord the MedicalRecord object to check
+   * @return true if the person is an adult, false otherwise
+   */
+  public Boolean isAdult(MedicalRecord medicalRecord) {
+    return medicalRecord.getAge() >= MINIMUM_AGE;
   }
 }
