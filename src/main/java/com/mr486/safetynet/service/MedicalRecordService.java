@@ -32,6 +32,7 @@ public class MedicalRecordService {
 
   /**
    * Retrieves a medical record by first name and last name.
+   *
    * @param medicalRecord the MedicalRecord object containing first name and last name
    */
   public void saveMedicalRecord(MedicalRecord medicalRecord) {

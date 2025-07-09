@@ -39,7 +39,7 @@ class MedicalRecordServiceTest {
     MedicalRecordDto medicalRecordDto1 = new MedicalRecordDto(medicalRecord);
 
     when(medicalRecordRepository.findByFirstNameAndLastName(medicalRecordDto1))
-        .thenReturn(Optional.of(medicalRecord));
+            .thenReturn(Optional.of(medicalRecord));
 
     Optional<MedicalRecord> result = medicalRecordService.getMedicalRecordByFirstNameAndLastName(medicalRecordDto1);
     assertTrue(result.isPresent());

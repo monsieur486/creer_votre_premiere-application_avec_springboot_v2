@@ -87,6 +87,7 @@ public class MedicalRecordRepositoryImplJson implements MedicalRecordRepository 
 
   /**
    * Deletes a medical record from the repository.
+   *
    * @param medicalRecord the DTO containing first name and last name of the medical record to delete
    */
   @Override
