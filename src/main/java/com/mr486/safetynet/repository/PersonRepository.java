@@ -39,4 +39,12 @@ public interface PersonRepository {
      * @param personDto the DTO containing the first and last name of the person to delete
      */
     void delete(PersonDto personDto);
+
+    /**
+     * Checks if a person exists in the repository.
+     *
+     * @param personDto the DTO containing the first and last name of the person to check
+     * @return true if the person exists, false otherwise
+     */
+    boolean exists(PersonDto personDto);
 }
