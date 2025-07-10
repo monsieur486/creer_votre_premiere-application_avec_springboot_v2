@@ -1,4 +1,4 @@
-package com.mr486.safetynet.dto;
+package com.mr486.safetynet.dto.search;
 
 import com.mr486.safetynet.model.Person;
 import jakarta.validation.constraints.NotBlank;

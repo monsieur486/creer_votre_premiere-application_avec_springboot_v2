@@ -1,5 +1,7 @@
 package com.mr486.safetynet.dto;
 
+import com.mr486.safetynet.dto.response.FireStationCoverage;
+import com.mr486.safetynet.dto.response.PersonInfo;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

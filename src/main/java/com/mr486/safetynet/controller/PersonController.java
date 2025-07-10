@@ -1,6 +1,6 @@
 package com.mr486.safetynet.controller;
 
-import com.mr486.safetynet.dto.PersonSearch;
+import com.mr486.safetynet.dto.search.PersonSearch;
 import com.mr486.safetynet.model.Person;
 import com.mr486.safetynet.service.PersonService;
 import com.mr486.safetynet.tools.ResponseUtil;

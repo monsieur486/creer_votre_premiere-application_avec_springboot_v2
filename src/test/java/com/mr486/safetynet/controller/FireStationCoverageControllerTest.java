@@ -1,7 +1,7 @@
 package com.mr486.safetynet.controller;
 
-import com.mr486.safetynet.dto.FireStationCoverage;
-import com.mr486.safetynet.dto.PersonInfo;
+import com.mr486.safetynet.dto.response.FireStationCoverage;
+import com.mr486.safetynet.dto.response.PersonInfo;
 import com.mr486.safetynet.service.FireStationCoverageService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

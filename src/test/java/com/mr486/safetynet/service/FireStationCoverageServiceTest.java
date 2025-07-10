@@ -1,6 +1,6 @@
 package com.mr486.safetynet.service;
 
-import com.mr486.safetynet.dto.FireStationCoverage;
+import com.mr486.safetynet.dto.response.FireStationCoverage;
 import com.mr486.safetynet.model.FireStation;
 import com.mr486.safetynet.model.MedicalRecord;
 import com.mr486.safetynet.model.Person;

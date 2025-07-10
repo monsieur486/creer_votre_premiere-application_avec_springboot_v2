@@ -1,4 +1,4 @@
-package com.mr486.safetynet.dto;
+package com.mr486.safetynet.dto.search;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;

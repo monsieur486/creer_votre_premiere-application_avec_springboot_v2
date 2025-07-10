@@ -1,6 +1,6 @@
 package com.mr486.safetynet.controller;
 
-import com.mr486.safetynet.dto.FireStationSearch;
+import com.mr486.safetynet.dto.search.FireStationSearch;
 import com.mr486.safetynet.model.FireStation;
 import com.mr486.safetynet.service.FireStationService;
 import com.mr486.safetynet.tools.ResponseUtil;

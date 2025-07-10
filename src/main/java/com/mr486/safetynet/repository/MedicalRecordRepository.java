@@ -1,6 +1,6 @@
 package com.mr486.safetynet.repository;
 
-import com.mr486.safetynet.dto.MedicalRecordSearch;
+import com.mr486.safetynet.dto.search.MedicalRecordSearch;
 import com.mr486.safetynet.model.MedicalRecord;
 
 import java.util.Optional;

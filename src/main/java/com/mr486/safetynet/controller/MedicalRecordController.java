@@ -1,6 +1,6 @@
 package com.mr486.safetynet.controller;
 
-import com.mr486.safetynet.dto.MedicalRecordSearch;
+import com.mr486.safetynet.dto.search.MedicalRecordSearch;
 import com.mr486.safetynet.model.MedicalRecord;
 import com.mr486.safetynet.service.MedicalRecordService;
 import com.mr486.safetynet.tools.ResponseUtil;

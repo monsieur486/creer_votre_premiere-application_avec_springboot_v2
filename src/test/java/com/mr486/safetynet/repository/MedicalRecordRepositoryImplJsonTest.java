@@ -1,7 +1,7 @@
 package com.mr486.safetynet.repository;
 
 import com.mr486.safetynet.dto.DataBinding;
-import com.mr486.safetynet.dto.MedicalRecordSearch;
+import com.mr486.safetynet.dto.search.MedicalRecordSearch;
 import com.mr486.safetynet.model.MedicalRecord;
 import com.mr486.safetynet.tools.JsonDataReader;
 import org.junit.jupiter.api.BeforeEach;

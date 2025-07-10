@@ -1,7 +1,7 @@
 package com.mr486.safetynet.repository;
 
 import com.mr486.safetynet.dto.DataBinding;
-import com.mr486.safetynet.dto.PersonSearch;
+import com.mr486.safetynet.dto.search.PersonSearch;
 import com.mr486.safetynet.model.Person;
 import com.mr486.safetynet.tools.JsonDataReader;
 import jakarta.annotation.PostConstruct;
