@@ -101,4 +101,16 @@ public class MedicalRecordService {
     int age = Period.between(birthDateParsed, now).getYears();
     return age >= adultAge;
   }
+
+  /**
+   * Calculates the age based on the provided birthdate.
+   *
+   * @param birthdate the birthdate in MM/dd/yyyy format
+   * @return the age in years
+   */
+  public int calculateAge(String birthdate) {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+    LocalDate birthDate = LocalDate.parse(birthdate, formatter);
+    return Period.between(birthDate, LocalDate.now()).getYears();
+  }
 }
