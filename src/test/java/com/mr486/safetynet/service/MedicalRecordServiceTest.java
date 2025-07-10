@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -149,58 +150,48 @@ class MedicalRecordServiceTest {
    * Test for checking if a medical record belongs to an adult
    */
   @Test
-  void testIsAdult() throws NoSuchFieldException, IllegalAccessException {
-
-    Field field = MedicalRecordService.class.getDeclaredField("adultAge");
-    field.setAccessible(true);
-    field.set(medicalRecordService, 18);
+  void isAdult() throws NoSuchFieldException, IllegalAccessException {
 
     MedicalRecord medicalRecord = new MedicalRecord();
     medicalRecord.setBirthdate("12/21/2000");
     boolean isAdult = medicalRecordService.isAdult(medicalRecord);
-    assertTrue(isAdult, "Expected the person to be an adult based on the birthdate.");
+    assertTrue(isAdult);
 
     medicalRecord.setBirthdate("12/21/2020");
     isAdult = medicalRecordService.isAdult(medicalRecord);
-    assertFalse(isAdult, "Expected the person to not be an adult based on the birthdate.");
-
+    assertFalse(isAdult);
   }
 
   /**
    * Test for checking if a medical record does not belong to an adult
    */
   @Test
-  void testIsAdult_withBadBirthdate() throws NoSuchFieldException, IllegalAccessException {
-    Field field = MedicalRecordService.class.getDeclaredField("adultAge");
-    field.setAccessible(true);
-    field.set(medicalRecordService, 18);
-
+  void isAdult_withBadBirthdate() {
     MedicalRecord medicalRecord = new MedicalRecord();
     medicalRecord.setBirthdate("invalid-date");
-
-    assertThrows(IllegalArgumentException.class, () -> medicalRecordService.isAdult(medicalRecord));
+    assertFalse(medicalRecordService.isAdult(medicalRecord));
   }
 
   /**
    * Test for calculating age based on birthdate
    */
   @Test
-  void testCalculateAge() {
+  void calculateAge() {
     MedicalRecord medicalRecord = new MedicalRecord();
     medicalRecord.setBirthdate("01/01/2000");
 
     int age = medicalRecordService.calculateAge(medicalRecord.getBirthdate());
     LocalDate birthDate = LocalDate.parse(medicalRecord.getBirthdate(), java.time.format.DateTimeFormatter.ofPattern("MM/dd/yyyy"));
-    int expectedAge = LocalDate.now().getYear() - birthDate.getYear();
+    int expectedAge = Period.between(birthDate, LocalDate.now()).getYears();
 
-    assertEquals(expectedAge, age, "Expected age to match the calculated age based on the birthdate.");
+    assertEquals(expectedAge, age);
   }
 
   /**
    * Test for calculating age with an invalid birthdate format
    */
   @Test
-  void testCalculateAge_withInvalidBirthdate() {
+  void calculateAge_withInvalidBirthdate() {
     MedicalRecord medicalRecord = new MedicalRecord();
     medicalRecord.setBirthdate("invalid-date");
 

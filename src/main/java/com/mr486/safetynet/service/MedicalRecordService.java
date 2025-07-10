@@ -1,5 +1,6 @@
 package com.mr486.safetynet.service;
 
+import com.mr486.safetynet.configuration.AppConfiguration;
 import com.mr486.safetynet.dto.search.MedicalRecordSearch;
 import com.mr486.safetynet.exeption.EntityAlreadyExistsException;
 import com.mr486.safetynet.exeption.EntityNotFoundException;
@@ -26,10 +27,6 @@ import java.util.Optional;
 public class MedicalRecordService {
 
   private final MedicalRecordRepository medicalRecordRepository;
-
-  @Value("${min.adult.age}")
-  Integer adultAge;
-
 
   /**
    * Retrieves a medical record by first name and last name.
@@ -89,17 +86,13 @@ public class MedicalRecordService {
    * @return true if the person is an adult, false otherwise
    */
   public Boolean isAdult(MedicalRecord medicalRecord) {
-    String birthdate = medicalRecord.getBirthdate();
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-    LocalDate birthDateParsed;
     try {
-      birthDateParsed = LocalDate.parse(birthdate, formatter);
-    } catch (DateTimeParseException e) {
-      throw new IllegalArgumentException("Invalid birthdate format. Expected format is MM/dd/yyyy.");
+      int age = calculateAge(medicalRecord.getBirthdate());
+      return age >= AppConfiguration.AGE_ADULT;
+    } catch (IllegalArgumentException e) {
+      log.error("Invalid birthdate format for medical record: {}", medicalRecord, e);
+      return false; // Consider as not an adult if the birthdate is invalid
     }
-    LocalDate now = LocalDate.now();
-    int age = Period.between(birthDateParsed, now).getYears();
-    return age >= adultAge;
   }
 
   /**
