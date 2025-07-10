@@ -1,6 +1,9 @@
 package com.mr486.safetynet.dto;
 
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -23,21 +26,4 @@ class FireStationCoverageDtoTest {
     assertEquals(1, dto.getPersons().size());
     assertEquals(person, dto.getPersons().get(0));
   }
-
-  /**
-   * Tests adding a person to a FireStationCoverageDto that already has persons.
-   * Verifies that the new person is added to the existing list.
-   */
-  @Test
-  void addNullPerson_shuldAddNewArrayList() {
-    FireStationCoverageDto dto = new FireStationCoverageDto();
-    PersonInfoDto person = null;
-
-    dto.addPerson(person);
-
-    assertNotNull(dto.getPersons());
-    assertEquals(1, dto.getPersons().size());
-    assertNull(dto.getPersons().get(0));
-  }
-
 }
