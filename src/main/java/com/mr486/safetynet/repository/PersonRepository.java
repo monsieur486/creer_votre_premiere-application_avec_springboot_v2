@@ -3,6 +3,7 @@ package com.mr486.safetynet.repository;
 import com.mr486.safetynet.dto.PersonDto;
 import com.mr486.safetynet.model.Person;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -47,4 +48,12 @@ public interface PersonRepository {
    * @return true if the person exists, false otherwise
    */
   boolean exists(PersonDto personDto);
+
+  /**
+   * Finds all persons living at a specific address.
+   *
+   * @param address the address to search for
+   * @return a list of persons living at the specified address
+   */
+  List<Person> findPersonsByAddress(String address);
 }
