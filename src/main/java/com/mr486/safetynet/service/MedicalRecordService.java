@@ -6,9 +6,14 @@ import com.mr486.safetynet.exeption.EntityNotFoundException;
 import com.mr486.safetynet.model.MedicalRecord;
 import com.mr486.safetynet.repository.MedicalRecordRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Optional;
 
 /**
@@ -17,6 +22,7 @@ import java.util.Optional;
  */
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class MedicalRecordService {
 
   private final MedicalRecordRepository medicalRecordRepository;
@@ -82,17 +88,17 @@ public class MedicalRecordService {
    * @param medicalRecord the MedicalRecord object to check
    * @return true if the person is an adult, false otherwise
    */
-  private Boolean isAdult(MedicalRecord medicalRecord) {
-    if (medicalRecord.getBirthdate() == null || medicalRecord.getBirthdate().isEmpty()) {
-      return false;
-    }
+  public Boolean isAdult(MedicalRecord medicalRecord) {
+    String birthdate = medicalRecord.getBirthdate();
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+    LocalDate birthDateParsed;
     try {
-      String[] birthDateParts = medicalRecord.getBirthdate().split("/");
-      int birthYear = Integer.parseInt(birthDateParts[2]);
-      int currentYear = java.time.LocalDate.now().getYear();
-      return (currentYear - birthYear) >= adultAge;
-    } catch (Exception e) {
-      throw new IllegalArgumentException("Invalid birthdate format: " + medicalRecord.getBirthdate());
+      birthDateParsed = LocalDate.parse(birthdate, formatter);
+    } catch (DateTimeParseException e) {
+      throw new IllegalArgumentException("Invalid birthdate format. Expected format is MM/dd/yyyy.");
     }
+    LocalDate now = LocalDate.now();
+    int age = Period.between(birthDateParsed, now).getYears();
+    return age >= adultAge;
   }
 }

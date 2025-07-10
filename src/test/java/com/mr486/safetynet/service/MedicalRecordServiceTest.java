@@ -8,6 +8,7 @@ import com.mr486.safetynet.repository.MedicalRecordRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.Field;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -141,8 +142,42 @@ class MedicalRecordServiceTest {
 
     assertThrows(EntityNotFoundException.class, () -> medicalRecordService.deleteMedicalRecord(medicalRecordDto));
     verify(medicalRecordRepository, never()).delete(any());
+  }
 
+  /**
+   * Test for checking if a medical record belongs to an adult
+   */
+  @Test
+  void testIsAdult() throws NoSuchFieldException, IllegalAccessException {
 
+    Field field = MedicalRecordService.class.getDeclaredField("adultAge");
+    field.setAccessible(true);
+    field.set(medicalRecordService, 18);
+
+    MedicalRecord medicalRecord = new MedicalRecord();
+    medicalRecord.setBirthdate("12/21/2000");
+    boolean isAdult = medicalRecordService.isAdult(medicalRecord);
+    assertTrue(isAdult, "Expected the person to be an adult based on the birthdate.");
+
+    medicalRecord.setBirthdate("12/21/2020");
+    isAdult = medicalRecordService.isAdult(medicalRecord);
+    assertFalse(isAdult, "Expected the person to not be an adult based on the birthdate.");
+
+  }
+
+  /**
+   * Test for checking if a medical record does not belong to an adult
+   */
+  @Test
+  void testIsAdult_withBadBirthdate() throws NoSuchFieldException, IllegalAccessException {
+    Field field = MedicalRecordService.class.getDeclaredField("adultAge");
+    field.setAccessible(true);
+    field.set(medicalRecordService, 18);
+
+    MedicalRecord medicalRecord = new MedicalRecord();
+    medicalRecord.setBirthdate("invalid-date");
+
+    assertThrows(IllegalArgumentException.class, () -> medicalRecordService.isAdult(medicalRecord));
   }
 
 }
