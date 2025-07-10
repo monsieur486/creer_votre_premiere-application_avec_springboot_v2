@@ -20,6 +20,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Controller for handling requests related to fire station coverage.
+ * Provides endpoints to retrieve coverage information based on fire station numbers.
+ */
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/firestation")
@@ -27,6 +31,12 @@ public class FireStationCoverageController {
 
   private final FireStationCoverageService fireStationCoverageService;
 
+  /**
+   * Retrieves the coverage information for a specific fire station.
+   *
+   * @param stationNumber the number of the fire station to retrieve coverage for
+   * @return ResponseEntity containing FireStationCoverageDto with coverage details
+   */
   @GetMapping
   public ResponseEntity<FireStationCoverageDto> getCoverageByStation(@RequestParam Integer stationNumber) {
     FireStationCoverageDto coverage = fireStationCoverageService.getCoverageByStationNumber(stationNumber);

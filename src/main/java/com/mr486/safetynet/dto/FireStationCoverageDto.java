@@ -6,6 +6,11 @@ import lombok.Data;
 
 import java.util.List;
 
+/**
+ * Data Transfer Object for Fire Station Coverage.
+ * Contains information about persons covered by a fire station,
+ * including counts of adults and children.
+ */
 @Data
 @AllArgsConstructor
 public class FireStationCoverageDto {
@@ -13,6 +18,11 @@ public class FireStationCoverageDto {
   private long adultCount;
   private long childCount;
 
+  /**
+   * Constructor to initialize FireStationCoverageDto with a list of persons.
+   * Automatically calculates the adult and child counts based on the provided persons.
+   *
+   */
   @Data
   @AllArgsConstructor
   public static class PersonInfo {
