@@ -103,6 +103,26 @@ public class PersonRepositoryImplJson implements PersonRepository {
     return persons.stream().anyMatch(person -> isPersonDtoEqualPerson(person, personDto));
   }
 
+  /**
+   * Finds all persons living at a specific address.
+   *
+   * @param address the address to search for
+   * @return a list of persons living at the specified address
+   */
+  @Override
+  public List<Person> findPersonsByAddress(String address) {
+    return persons.stream()
+            .filter(person -> person.getAddress().equalsIgnoreCase(address))
+            .toList();
+  }
+
+  /**
+   * Checks if a person matches the given DTO.
+   *
+   * @param person the person to check
+   * @param personDto the DTO containing the first and last name
+   * @return true if the person matches the DTO, false otherwise
+   */
   private boolean isPersonDtoEqualPerson(Person person, PersonDto personDto) {
     return person.getFirstName().equals(personDto.getFirstName()) &&
             person.getLastName().equals(personDto.getLastName());
