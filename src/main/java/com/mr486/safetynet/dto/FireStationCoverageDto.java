@@ -3,7 +3,9 @@ package com.mr486.safetynet.dto;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,22 +15,16 @@ import java.util.List;
  */
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class FireStationCoverageDto {
-  private List<PersonInfo> persons;
+  private List<PersonInfoDto> persons;
   private long adultCount;
   private long childCount;
 
-  /**
-   * Constructor to initialize FireStationCoverageDto with a list of persons.
-   * Automatically calculates the adult and child counts based on the provided persons.
-   *
-   */
-  @Data
-  @AllArgsConstructor
-  public static class PersonInfo {
-    private String firstName;
-    private String lastName;
-    private String address;
-    private String phone;
+  public void addPerson(PersonInfoDto person) {
+    if (persons == null) {
+      persons = new ArrayList<>();
+    }
+    persons.add(person);
   }
 }

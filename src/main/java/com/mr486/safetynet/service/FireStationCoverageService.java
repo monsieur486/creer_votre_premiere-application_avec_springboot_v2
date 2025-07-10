@@ -2,6 +2,7 @@ package com.mr486.safetynet.service;
 
 import com.mr486.safetynet.dto.FireStationCoverageDto;
 import com.mr486.safetynet.dto.MedicalRecordDto;
+import com.mr486.safetynet.dto.PersonInfoDto;
 import com.mr486.safetynet.model.FireStation;
 import com.mr486.safetynet.model.MedicalRecord;
 import com.mr486.safetynet.model.Person;
@@ -38,7 +39,7 @@ public class FireStationCoverageService {
     List<FireStation> stations = fireStationService.getAllFireStationsByStationNumber(stationNumber);
     List<String> addresses = stations.stream().map(FireStation::getAddress).toList();
 
-    List<FireStationCoverageDto.PersonInfo> personInfos = new ArrayList<>();
+    List<PersonInfoDto> personInfos = new ArrayList<>();
     long adultCount = 0;
     long childCount = 0;
 
@@ -58,12 +59,12 @@ public class FireStationCoverageService {
         else childCount++;
 
         // Add the person's information to the list
-        personInfos.add(new FireStationCoverageDto.PersonInfo(
-                person.getFirstName(),
-                person.getLastName(),
-                person.getAddress(),
-                person.getPhone()
-        ));
+        PersonInfoDto personInfoDto = new PersonInfoDto();
+        personInfoDto.setFirstName(person.getFirstName());
+        personInfoDto.setLastName(person.getLastName());
+        personInfoDto.setAddress(person.getAddress());
+        personInfoDto.setPhone(person.getPhone());
+        personInfos.add(personInfoDto);
       }
     }
 
