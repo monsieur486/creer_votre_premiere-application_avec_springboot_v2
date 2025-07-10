@@ -2,7 +2,6 @@ package com.mr486.safetynet.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,11 +13,17 @@ import java.util.List;
  */
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class FireStationCoverage {
-  private List<PersonInfo> persons = new ArrayList<>();
+  private List<PersonInfo> persons;
   private long adultCount;
   private long childCount;
+
+  /**
+   * Default constructor initializes an empty list of persons.
+   */
+  public FireStationCoverage() {
+    this.persons = new ArrayList<>();
+  }
 
   /**
    * Adds a person to the list of persons covered by the fire station.
