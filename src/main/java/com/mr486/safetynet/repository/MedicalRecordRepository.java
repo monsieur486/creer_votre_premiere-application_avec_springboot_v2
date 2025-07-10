@@ -1,6 +1,6 @@
 package com.mr486.safetynet.repository;
 
-import com.mr486.safetynet.dto.MedicalRecordDto;
+import com.mr486.safetynet.dto.MedicalRecordSearch;
 import com.mr486.safetynet.model.MedicalRecord;
 
 import java.util.Optional;
@@ -28,23 +28,23 @@ public interface MedicalRecordRepository {
   /**
    * Finds a medical record by first and last name.
    *
-   * @param medicalRecordDto the DTO containing the first and last name of the person
+   * @param medicalRecordSearch the DTO containing the first and last name of the person
    * @return an Optional containing the found medical record, or empty if not found
    */
-  Optional<MedicalRecord> findByFirstNameAndLastName(MedicalRecordDto medicalRecordDto);
+  Optional<MedicalRecord> findByFirstNameAndLastName(MedicalRecordSearch medicalRecordSearch);
 
   /**
    * Deletes a medical record from the repository.
    *
-   * @param medicalRecordDto the DTO containing the first and last name of the person whose record is to be deleted
+   * @param medicalRecordSearch the DTO containing the first and last name of the person whose record is to be deleted
    */
-  void delete(MedicalRecordDto medicalRecordDto);
+  void delete(MedicalRecordSearch medicalRecordSearch);
 
   /**
    * Checks if a medical record exists for a given person.
    *
-   * @param medicalRecordDto the DTO containing the first and last name of the person
+   * @param medicalRecordSearch the DTO containing the first and last name of the person
    * @return true if the medical record exists, false otherwise
    */
-  boolean exists(MedicalRecordDto medicalRecordDto);
+  boolean exists(MedicalRecordSearch medicalRecordSearch);
 }

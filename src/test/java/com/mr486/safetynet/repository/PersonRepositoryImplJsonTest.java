@@ -1,7 +1,7 @@
 package com.mr486.safetynet.repository;
 
-import com.mr486.safetynet.dto.DataBindingDto;
-import com.mr486.safetynet.dto.PersonDto;
+import com.mr486.safetynet.dto.DataBinding;
+import com.mr486.safetynet.dto.PersonSearch;
 import com.mr486.safetynet.model.Person;
 import com.mr486.safetynet.tools.JsonDataReader;
 import org.junit.jupiter.api.BeforeEach;
@@ -50,13 +50,13 @@ class PersonRepositoryImplJsonTest {
             "123-456-7890",
             "john.doe@test.com"
     );
-    DataBindingDto dataBinding = new DataBindingDto();
+    DataBinding dataBinding = new DataBinding();
     dataBinding.setPersons(List.of(person));
     when(mockJsonDataReader.loadData()).thenReturn(dataBinding);
 
     personRepository.init();
 
-    Optional<Person> result = personRepository.findByFirstNameAndLastName(new PersonDto("John", "Doe"));
+    Optional<Person> result = personRepository.findByFirstNameAndLastName(new PersonSearch("John", "Doe"));
     assertTrue(result.isPresent());
     assertEquals("John", result.get().getFirstName());
     assertEquals("Doe", result.get().getLastName());
@@ -72,7 +72,7 @@ class PersonRepositoryImplJsonTest {
 
     personRepository.init();
 
-    Optional<Person> result = personRepository.findByFirstNameAndLastName(new PersonDto("NonExistent", "Person"));
+    Optional<Person> result = personRepository.findByFirstNameAndLastName(new PersonSearch("NonExistent", "Person"));
     assertTrue(result.isEmpty());
   }
 
@@ -89,11 +89,11 @@ class PersonRepositoryImplJsonTest {
             "123-456-7890",
             "john.doe@test.com"
     );
-    when(mockJsonDataReader.loadData()).thenReturn(new DataBindingDto());
+    when(mockJsonDataReader.loadData()).thenReturn(new DataBinding());
     personRepository.init();
     personRepository.save(person);
 
-    Optional<Person> result = personRepository.findByFirstNameAndLastName(new PersonDto("John", "Doe"));
+    Optional<Person> result = personRepository.findByFirstNameAndLastName(new PersonSearch("John", "Doe"));
     assertTrue(result.isPresent());
     assertEquals("John", result.get().getFirstName());
   }
@@ -111,7 +111,7 @@ class PersonRepositoryImplJsonTest {
             "123-456-7890",
             "john.doe@test.com"
     );
-    when(mockJsonDataReader.loadData()).thenReturn(new DataBindingDto());
+    when(mockJsonDataReader.loadData()).thenReturn(new DataBinding());
     personRepository.init();
     personRepository.save(person);
 
@@ -125,7 +125,7 @@ class PersonRepositoryImplJsonTest {
     );
     personRepository.update(updatedPerson);
 
-    Optional<Person> result = personRepository.findByFirstNameAndLastName(new PersonDto("John", "Doe"));
+    Optional<Person> result = personRepository.findByFirstNameAndLastName(new PersonSearch("John", "Doe"));
     assertTrue(result.isPresent());
     assertEquals("New Address", result.get().getAddress());
   }
@@ -143,11 +143,11 @@ class PersonRepositoryImplJsonTest {
             "123-456-7890",
             "jane.smith@test.com"
     );
-    when(mockJsonDataReader.loadData()).thenReturn(new DataBindingDto());
+    when(mockJsonDataReader.loadData()).thenReturn(new DataBinding());
     personRepository.init();
     personRepository.save(person);
 
-    Optional<Person> result = personRepository.findByFirstNameAndLastName(new PersonDto("Jane", "Smith"));
+    Optional<Person> result = personRepository.findByFirstNameAndLastName(new PersonSearch("Jane", "Smith"));
     assertTrue(result.isPresent());
     assertEquals("Jane", result.get().getFirstName());
     assertEquals("Smith", result.get().getLastName());
@@ -166,13 +166,13 @@ class PersonRepositoryImplJsonTest {
             "123-456-7890",
             "john.doe@test.com"
     );
-    when(mockJsonDataReader.loadData()).thenReturn(new DataBindingDto());
+    when(mockJsonDataReader.loadData()).thenReturn(new DataBinding());
     personRepository.init();
     personRepository.save(person);
 
-    personRepository.delete(new PersonDto("Alice", "Brown"));
+    personRepository.delete(new PersonSearch("Alice", "Brown"));
 
-    assertFalse(personRepository.exists(new PersonDto("Alice", "Brown")));
+    assertFalse(personRepository.exists(new PersonSearch("Alice", "Brown")));
   }
 
   /**
@@ -180,9 +180,9 @@ class PersonRepositoryImplJsonTest {
    */
   @Test
   void handlesNonExistentPersonDeletionGracefully() {
-    personRepository.delete(new PersonDto("Nonexistent", "Person"));
+    personRepository.delete(new PersonSearch("Nonexistent", "Person"));
 
-    assertFalse(personRepository.exists(new PersonDto("Nonexistent", "Person")));
+    assertFalse(personRepository.exists(new PersonSearch("Nonexistent", "Person")));
   }
 
   /**
@@ -198,12 +198,12 @@ class PersonRepositoryImplJsonTest {
             "123-456-7890",
             "john.doe@test.com"
     );
-    when(mockJsonDataReader.loadData()).thenReturn(new DataBindingDto());
+    when(mockJsonDataReader.loadData()).thenReturn(new DataBinding());
     personRepository.init();
     personRepository.save(person);
 
-    assertTrue(personRepository.exists(new PersonDto("Bob", "White")));
-    assertFalse(personRepository.exists(new PersonDto("Nonexistent", "Person")));
+    assertTrue(personRepository.exists(new PersonSearch("Bob", "White")));
+    assertFalse(personRepository.exists(new PersonSearch("Nonexistent", "Person")));
   }
 
   /**
@@ -219,10 +219,10 @@ class PersonRepositoryImplJsonTest {
             "123-456-7890",
             "john.doe@test.com"
     );
-    when(mockJsonDataReader.loadData()).thenReturn(new DataBindingDto());
+    when(mockJsonDataReader.loadData()).thenReturn(new DataBinding());
     personRepository.init();
     personRepository.save(person);
-    Optional<Person> result = personRepository.findByFirstNameAndLastName(new PersonDto("John", "Smith"));
+    Optional<Person> result = personRepository.findByFirstNameAndLastName(new PersonSearch("John", "Smith"));
     assertTrue(result.isEmpty(), "Expected no person found with first name 'John' and last name 'Smith'");
 
   }
@@ -240,7 +240,7 @@ class PersonRepositoryImplJsonTest {
             "123-456-7890",
             "john.doe@test.com"
     );
-    when(mockJsonDataReader.loadData()).thenReturn(new DataBindingDto());
+    when(mockJsonDataReader.loadData()).thenReturn(new DataBinding());
     personRepository.init();
     personRepository.save(person);
 
@@ -254,7 +254,7 @@ class PersonRepositoryImplJsonTest {
     );
     personRepository.update(updatedPerson);
 
-    Optional<Person> result = personRepository.findByFirstNameAndLastName(new PersonDto("John", "Doe"));
+    Optional<Person> result = personRepository.findByFirstNameAndLastName(new PersonSearch("John", "Doe"));
     assertTrue(result.isPresent());
     assertEquals("123 Main St", result.get().getAddress(), "Expected address to remain unchanged");
   }
@@ -272,7 +272,7 @@ class PersonRepositoryImplJsonTest {
             "123-456-7890",
             "john.doe@test.com"
     );
-    when(mockJsonDataReader.loadData()).thenReturn(new DataBindingDto());
+    when(mockJsonDataReader.loadData()).thenReturn(new DataBinding());
     personRepository.init();
     personRepository.save(person);
     List<Person> personsAtAddress = personRepository.findPersonsByAddress("123 Main St");

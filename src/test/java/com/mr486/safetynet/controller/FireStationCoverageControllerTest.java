@@ -1,7 +1,7 @@
 package com.mr486.safetynet.controller;
 
-import com.mr486.safetynet.dto.FireStationCoverageDto;
-import com.mr486.safetynet.dto.PersonInfoDto;
+import com.mr486.safetynet.dto.FireStationCoverage;
+import com.mr486.safetynet.dto.PersonInfo;
 import com.mr486.safetynet.service.FireStationCoverageService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -40,8 +40,8 @@ class FireStationCoverageControllerTest {
   @Test
   void getCoverageByStation_shouldReturnOkWithBody() throws Exception {
     // GIVEN
-    PersonInfoDto person = new PersonInfoDto("John", "Doe", "123 Main St", "111-111-1111");
-    FireStationCoverageDto responseDto = new FireStationCoverageDto(List.of(person), 1, 0);
+    PersonInfo person = new PersonInfo("John", "Doe", "123 Main St", "111-111-1111");
+    FireStationCoverage responseDto = new FireStationCoverage(List.of(person), 1, 0);
 
     when(fireStationCoverageService.getCoverageByStationNumber(1)).thenReturn(responseDto);
 
@@ -62,7 +62,7 @@ class FireStationCoverageControllerTest {
   @Test
   void getCoverageByStation_shouldReturnNoContentWhenEmpty() throws Exception {
     // GIVEN
-    FireStationCoverageDto emptyDto = new FireStationCoverageDto(List.of(), 0, 0);
+    FireStationCoverage emptyDto = new FireStationCoverage(List.of(), 0, 0);
     when(fireStationCoverageService.getCoverageByStationNumber(99)).thenReturn(emptyDto);
 
     // WHEN / THEN

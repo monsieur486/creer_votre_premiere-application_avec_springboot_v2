@@ -1,6 +1,6 @@
 package com.mr486.safetynet.controller;
 
-import com.mr486.safetynet.dto.MedicalRecordDto;
+import com.mr486.safetynet.dto.MedicalRecordSearch;
 import com.mr486.safetynet.model.MedicalRecord;
 import com.mr486.safetynet.service.MedicalRecordService;
 import org.junit.jupiter.api.BeforeEach;
@@ -84,16 +84,16 @@ class MedicalRecordControllerTest {
    */
   @Test
   void deleteMedicalRecord_shouldDeleteMedicalRecordSuccessfully() throws Exception {
-    // Given a valid MedicalRecordDto object
-    MedicalRecordDto medicalRecordDto = new MedicalRecordDto();
-    medicalRecordDto.setFirstName("John");
-    medicalRecordDto.setLastName("Doe");
+    // Given a valid MedicalRecordSearch object
+    MedicalRecordSearch medicalRecordSearch = new MedicalRecordSearch();
+    medicalRecordSearch.setFirstName("John");
+    medicalRecordSearch.setLastName("Doe");
 
     // When the deleteMedicalRecord method is called
-    ResponseEntity<String> responseEntity = medicalRecordController.deleteMedicalRecord(medicalRecordDto);
+    ResponseEntity<String> responseEntity = medicalRecordController.deleteMedicalRecord(medicalRecordSearch);
 
     // Then verify that the service method was called
-    verify(medicalRecordService, times(1)).deleteMedicalRecord(medicalRecordDto);
+    verify(medicalRecordService, times(1)).deleteMedicalRecord(medicalRecordSearch);
 
     // And check the response
     assertEquals(200, responseEntity.getStatusCodeValue());

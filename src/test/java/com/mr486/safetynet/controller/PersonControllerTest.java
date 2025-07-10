@@ -1,7 +1,7 @@
 package com.mr486.safetynet.controller;
 
 
-import com.mr486.safetynet.dto.PersonDto;
+import com.mr486.safetynet.dto.PersonSearch;
 import com.mr486.safetynet.model.Person;
 import com.mr486.safetynet.service.PersonService;
 import org.junit.jupiter.api.BeforeEach;
@@ -81,11 +81,11 @@ class PersonControllerTest {
     Person person = new Person();
     person.setFirstName("John");
     person.setLastName("Doe");
-    PersonDto personDto = new PersonDto(person);
+    PersonSearch personSearch = new PersonSearch(person);
 
-    ResponseEntity<String> responseEntity = personController.deletePerson(personDto);
+    ResponseEntity<String> responseEntity = personController.deletePerson(personSearch);
     // Verify that the service method was called
-    verify(mockPersonService, times(1)).deletePerson(personDto);
+    verify(mockPersonService, times(1)).deletePerson(personSearch);
     // Verify the response
     assertEquals(200, responseEntity.getStatusCodeValue());
     assertEquals("Person deleted successfully", responseEntity.getBody());

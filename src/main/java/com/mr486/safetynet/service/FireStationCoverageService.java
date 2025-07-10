@@ -1,8 +1,8 @@
 package com.mr486.safetynet.service;
 
-import com.mr486.safetynet.dto.FireStationCoverageDto;
-import com.mr486.safetynet.dto.MedicalRecordDto;
-import com.mr486.safetynet.dto.PersonInfoDto;
+import com.mr486.safetynet.dto.FireStationCoverage;
+import com.mr486.safetynet.dto.MedicalRecordSearch;
+import com.mr486.safetynet.dto.PersonInfo;
 import com.mr486.safetynet.model.FireStation;
 import com.mr486.safetynet.model.MedicalRecord;
 import com.mr486.safetynet.model.Person;
@@ -33,13 +33,13 @@ public class FireStationCoverageService {
    * along with counts of adults and children.
    *
    * @param stationNumber the fire station number to get coverage for
-   * @return FireStationCoverageDto containing person information and counts
+   * @return FireStationCoverage containing person information and counts
    */
-  public FireStationCoverageDto getCoverageByStationNumber(Integer stationNumber) {
+  public FireStationCoverage getCoverageByStationNumber(Integer stationNumber) {
     List<FireStation> stations = fireStationService.getAllFireStationsByStationNumber(stationNumber);
     List<String> addresses = stations.stream().map(FireStation::getAddress).toList();
 
-    List<PersonInfoDto> personInfos = new ArrayList<>();
+    List<PersonInfo> personInfos = new ArrayList<>();
     long adultCount = 0;
     long childCount = 0;
 
@@ -50,7 +50,7 @@ public class FireStationCoverageService {
       // For each person, check their medical record to determine if they are an adult or a child
       for (Person person : personsAtAddress) {
         Optional<MedicalRecord> medicalOpt = medicalRecordService.getMedicalRecordByFirstNameAndLastName(
-                new MedicalRecordDto(person.getFirstName(), person.getLastName())
+                new MedicalRecordSearch(person.getFirstName(), person.getLastName())
         );
 
         // Determine if the person is an adult or a child based on their medical record
@@ -59,15 +59,15 @@ public class FireStationCoverageService {
         else childCount++;
 
         // Add the person's information to the list
-        PersonInfoDto personInfoDto = new PersonInfoDto();
-        personInfoDto.setFirstName(person.getFirstName());
-        personInfoDto.setLastName(person.getLastName());
-        personInfoDto.setAddress(person.getAddress());
-        personInfoDto.setPhone(person.getPhone());
-        personInfos.add(personInfoDto);
+        PersonInfo personInfo = new PersonInfo();
+        personInfo.setFirstName(person.getFirstName());
+        personInfo.setLastName(person.getLastName());
+        personInfo.setAddress(person.getAddress());
+        personInfo.setPhone(person.getPhone());
+        personInfos.add(personInfo);
       }
     }
 
-    return new FireStationCoverageDto(personInfos, adultCount, childCount);
+    return new FireStationCoverage(personInfos, adultCount, childCount);
   }
 }

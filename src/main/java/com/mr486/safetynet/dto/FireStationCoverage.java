@@ -15,8 +15,8 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class FireStationCoverageDto {
-  private List<PersonInfoDto> persons = new ArrayList<>();
+public class FireStationCoverage {
+  private List<PersonInfo> persons = new ArrayList<>();
   private long adultCount;
   private long childCount;
 
@@ -25,7 +25,7 @@ public class FireStationCoverageDto {
    *
    * @param person the person to be added
    */
-  public void addPerson(PersonInfoDto person) {
+  public void addPerson(PersonInfo person) {
     persons.add(person);
   }
 }

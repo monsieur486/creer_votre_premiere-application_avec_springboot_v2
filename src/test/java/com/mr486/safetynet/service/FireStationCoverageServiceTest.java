@@ -1,6 +1,6 @@
 package com.mr486.safetynet.service;
 
-import com.mr486.safetynet.dto.FireStationCoverageDto;
+import com.mr486.safetynet.dto.FireStationCoverage;
 import com.mr486.safetynet.model.FireStation;
 import com.mr486.safetynet.model.MedicalRecord;
 import com.mr486.safetynet.model.Person;
@@ -54,7 +54,7 @@ class FireStationCoverageServiceTest {
     when(medicalRecordService.isAdult(any()))
             .thenReturn(true);
 
-    FireStationCoverageDto result = fireStationCoverageService.getCoverageByStationNumber(1);
+    FireStationCoverage result = fireStationCoverageService.getCoverageByStationNumber(1);
 
     assertEquals(1, result.getAdultCount());
     assertEquals(0, result.getChildCount());
@@ -70,7 +70,7 @@ class FireStationCoverageServiceTest {
     when(fireStationService.getAllFireStationsByStationNumber(99))
             .thenReturn(List.of());
 
-    FireStationCoverageDto result = fireStationCoverageService.getCoverageByStationNumber(99);
+    FireStationCoverage result = fireStationCoverageService.getCoverageByStationNumber(99);
 
     assertEquals(0, result.getAdultCount());
     assertEquals(0, result.getChildCount());
@@ -95,7 +95,7 @@ class FireStationCoverageServiceTest {
     when(medicalRecordService.getMedicalRecordByFirstNameAndLastName(any()))
             .thenReturn(Optional.empty());
 
-    FireStationCoverageDto result = fireStationCoverageService.getCoverageByStationNumber(1);
+    FireStationCoverage result = fireStationCoverageService.getCoverageByStationNumber(1);
 
     assertEquals(1, result.getAdultCount());
     assertEquals(0, result.getChildCount());
@@ -122,7 +122,7 @@ class FireStationCoverageServiceTest {
             .thenReturn(true)
             .thenReturn(false);
 
-    FireStationCoverageDto result = fireStationCoverageService.getCoverageByStationNumber(1);
+    FireStationCoverage result = fireStationCoverageService.getCoverageByStationNumber(1);
 
     assertEquals(1, result.getAdultCount());
     assertEquals(1, result.getChildCount());

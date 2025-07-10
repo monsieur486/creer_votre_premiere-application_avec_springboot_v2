@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MedicalRecordDto {
+public class MedicalRecordSearch {
 
   /**
    * The first name of the person.
@@ -29,12 +29,12 @@ public class MedicalRecordDto {
   private String lastName;
 
   /**
-   * Default constructor for MedicalRecordDto.
-   * Initializes an empty MedicalRecordDto.
+   * Default constructor for MedicalRecordSearch.
+   * Initializes an empty MedicalRecordSearch.
    *
    * @param medicalRecord the MedicalRecord object to initialize the DTO from.
    */
-  public MedicalRecordDto(MedicalRecord medicalRecord) {
+  public MedicalRecordSearch(MedicalRecord medicalRecord) {
     this.firstName = medicalRecord.getFirstName();
     this.lastName = medicalRecord.getLastName();
   }

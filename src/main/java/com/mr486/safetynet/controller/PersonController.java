@@ -1,6 +1,6 @@
 package com.mr486.safetynet.controller;
 
-import com.mr486.safetynet.dto.PersonDto;
+import com.mr486.safetynet.dto.PersonSearch;
 import com.mr486.safetynet.model.Person;
 import com.mr486.safetynet.service.PersonService;
 import com.mr486.safetynet.tools.ResponseUtil;
@@ -51,12 +51,12 @@ public class PersonController {
   /**
    * Deletes a person by their first and last name.
    *
-   * @param personDto The PersonDto object containing the first and last name of the person to be deleted. Must be valid.
+   * @param personSearch The PersonSearch object containing the first and last name of the person to be deleted. Must be valid.
    * @return ResponseEntity containing a success message.
    */
   @DeleteMapping(path = "", produces = "application/json")
-  public ResponseEntity<String> deletePerson(@RequestBody @Valid PersonDto personDto) {
-    personService.deletePerson(personDto);
+  public ResponseEntity<String> deletePerson(@RequestBody @Valid PersonSearch personSearch) {
+    personService.deletePerson(personSearch);
     return ResponseUtil.success(
             "Person deleted successfully"
     );

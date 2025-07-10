@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PersonDto {
+public class PersonSearch {
 
   /**
    * The person's first name.
@@ -29,12 +29,12 @@ public class PersonDto {
   private String lastName;
 
   /**
-   * Default constructor for PersonDto.
-   * Initializes an empty PersonDto.
+   * Default constructor for PersonSearch.
+   * Initializes an empty PersonSearch.
    *
    * @param person the Person object to initialize the DTO from.
    */
-  public PersonDto(Person person) {
+  public PersonSearch(Person person) {
     this.firstName = person.getFirstName();
     this.lastName = person.getLastName();
   }

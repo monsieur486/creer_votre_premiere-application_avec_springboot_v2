@@ -1,6 +1,6 @@
 package com.mr486.safetynet.repository;
 
-import com.mr486.safetynet.dto.PersonDto;
+import com.mr486.safetynet.dto.PersonSearch;
 import com.mr486.safetynet.model.Person;
 
 import java.util.List;
@@ -29,25 +29,25 @@ public interface PersonRepository {
   /**
    * Finds a person by their first and last name.
    *
-   * @param personDto the DTO containing the first and last name
+   * @param personSearch the DTO containing the first and last name
    * @return an Optional containing the found person, or empty if not found
    */
-  Optional<Person> findByFirstNameAndLastName(PersonDto personDto);
+  Optional<Person> findByFirstNameAndLastName(PersonSearch personSearch);
 
   /**
    * Deletes a person from the repository.
    *
-   * @param personDto the DTO containing the first and last name of the person to delete
+   * @param personSearch the DTO containing the first and last name of the person to delete
    */
-  void delete(PersonDto personDto);
+  void delete(PersonSearch personSearch);
 
   /**
    * Checks if a person exists in the repository.
    *
-   * @param personDto the DTO containing the first and last name of the person to check
+   * @param personSearch the DTO containing the first and last name of the person to check
    * @return true if the person exists, false otherwise
    */
-  boolean exists(PersonDto personDto);
+  boolean exists(PersonSearch personSearch);
 
   /**
    * Finds all persons living at a specific address.

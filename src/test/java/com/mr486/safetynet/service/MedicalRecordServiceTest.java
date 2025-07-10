@@ -1,6 +1,6 @@
 package com.mr486.safetynet.service;
 
-import com.mr486.safetynet.dto.MedicalRecordDto;
+import com.mr486.safetynet.dto.MedicalRecordSearch;
 import com.mr486.safetynet.exeption.EntityAlreadyExistsException;
 import com.mr486.safetynet.exeption.EntityNotFoundException;
 import com.mr486.safetynet.model.MedicalRecord;
@@ -37,12 +37,12 @@ class MedicalRecordServiceTest {
     medicalRecord.setFirstName("John");
     medicalRecord.setLastName("Doe");
 
-    MedicalRecordDto medicalRecordDto1 = new MedicalRecordDto(medicalRecord);
+    MedicalRecordSearch medicalRecordSearch1 = new MedicalRecordSearch(medicalRecord);
 
-    when(medicalRecordRepository.findByFirstNameAndLastName(medicalRecordDto1))
+    when(medicalRecordRepository.findByFirstNameAndLastName(medicalRecordSearch1))
             .thenReturn(Optional.of(medicalRecord));
 
-    Optional<MedicalRecord> result = medicalRecordService.getMedicalRecordByFirstNameAndLastName(medicalRecordDto1);
+    Optional<MedicalRecord> result = medicalRecordService.getMedicalRecordByFirstNameAndLastName(medicalRecordSearch1);
     assertTrue(result.isPresent());
     assertEquals("John", result.get().getFirstName());
     assertEquals("Doe", result.get().getLastName());
@@ -57,9 +57,9 @@ class MedicalRecordServiceTest {
     medicalRecord.setFirstName("Jane");
     medicalRecord.setLastName("Smith");
 
-    MedicalRecordDto medicalRecordDto1 = new MedicalRecordDto(medicalRecord);
+    MedicalRecordSearch medicalRecordSearch1 = new MedicalRecordSearch(medicalRecord);
 
-    when(medicalRecordRepository.exists(medicalRecordDto1)).thenReturn(false);
+    when(medicalRecordRepository.exists(medicalRecordSearch1)).thenReturn(false);
 
     medicalRecordService.saveMedicalRecord(medicalRecord);
 
@@ -76,9 +76,9 @@ class MedicalRecordServiceTest {
     medicalRecord.setFirstName("Jane");
     medicalRecord.setLastName("Smith");
 
-    MedicalRecordDto medicalRecordDto1 = new MedicalRecordDto(medicalRecord);
+    MedicalRecordSearch medicalRecordSearch1 = new MedicalRecordSearch(medicalRecord);
 
-    when(medicalRecordRepository.exists(medicalRecordDto1)).thenReturn(true);
+    when(medicalRecordRepository.exists(medicalRecordSearch1)).thenReturn(true);
 
     assertThrows(EntityAlreadyExistsException.class, () -> medicalRecordService.saveMedicalRecord(medicalRecord));
   }
@@ -92,9 +92,9 @@ class MedicalRecordServiceTest {
     medicalRecord.setFirstName("Jake");
     medicalRecord.setLastName("Johnson");
 
-    MedicalRecordDto medicalRecordDto1 = new MedicalRecordDto(medicalRecord);
+    MedicalRecordSearch medicalRecordSearch1 = new MedicalRecordSearch(medicalRecord);
 
-    when(medicalRecordRepository.exists(medicalRecordDto1)).thenReturn(true);
+    when(medicalRecordRepository.exists(medicalRecordSearch1)).thenReturn(true);
 
     medicalRecordService.updateMedicalRecord(medicalRecord);
 
@@ -111,9 +111,9 @@ class MedicalRecordServiceTest {
     medicalRecord.setFirstName("Jake");
     medicalRecord.setLastName("Johnson");
 
-    MedicalRecordDto medicalRecordDto1 = new MedicalRecordDto(medicalRecord);
+    MedicalRecordSearch medicalRecordSearch1 = new MedicalRecordSearch(medicalRecord);
 
-    when(medicalRecordRepository.exists(medicalRecordDto1)).thenReturn(false);
+    when(medicalRecordRepository.exists(medicalRecordSearch1)).thenReturn(false);
 
     assertThrows(EntityNotFoundException.class, () -> medicalRecordService.updateMedicalRecord(medicalRecord));
     verify(medicalRecordRepository, never()).save(any());
@@ -124,12 +124,12 @@ class MedicalRecordServiceTest {
    */
   @Test
   void testDeleteMedicalRecord_success() {
-    MedicalRecordDto medicalRecordDto1 = new MedicalRecordDto("John", "Doe");
-    when(medicalRecordRepository.exists(medicalRecordDto1)).thenReturn(true);
+    MedicalRecordSearch medicalRecordSearch1 = new MedicalRecordSearch("John", "Doe");
+    when(medicalRecordRepository.exists(medicalRecordSearch1)).thenReturn(true);
 
-    medicalRecordService.deleteMedicalRecord(medicalRecordDto1);
+    medicalRecordService.deleteMedicalRecord(medicalRecordSearch1);
 
-    verify(medicalRecordRepository).delete(medicalRecordDto1);
+    verify(medicalRecordRepository).delete(medicalRecordSearch1);
   }
 
   /**
@@ -137,10 +137,10 @@ class MedicalRecordServiceTest {
    */
   @Test
   void testDeleteMedicalRecord_notFound() {
-    MedicalRecordDto medicalRecordDto = new MedicalRecordDto("John", "Doe");
-    when(medicalRecordRepository.exists(medicalRecordDto)).thenReturn(false);
+    MedicalRecordSearch medicalRecordSearch = new MedicalRecordSearch("John", "Doe");
+    when(medicalRecordRepository.exists(medicalRecordSearch)).thenReturn(false);
 
-    assertThrows(EntityNotFoundException.class, () -> medicalRecordService.deleteMedicalRecord(medicalRecordDto));
+    assertThrows(EntityNotFoundException.class, () -> medicalRecordService.deleteMedicalRecord(medicalRecordSearch));
     verify(medicalRecordRepository, never()).delete(any());
   }
 

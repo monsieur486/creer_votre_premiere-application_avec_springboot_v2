@@ -1,7 +1,7 @@
 package com.mr486.safetynet.repository;
 
-import com.mr486.safetynet.dto.DataBindingDto;
-import com.mr486.safetynet.dto.PersonDto;
+import com.mr486.safetynet.dto.DataBinding;
+import com.mr486.safetynet.dto.PersonSearch;
 import com.mr486.safetynet.model.Person;
 import com.mr486.safetynet.tools.JsonDataReader;
 import jakarta.annotation.PostConstruct;
@@ -38,7 +38,7 @@ public class PersonRepositoryImplJson implements PersonRepository {
   void init() {
     log.warn("Persons data loading from json file");
     try {
-      DataBindingDto dataBinding = jsonDataReader.loadData();
+      DataBinding dataBinding = jsonDataReader.loadData();
       persons = new java.util.ArrayList<>(dataBinding.getPersons());
       log.warn("✅ Persons data loaded successfully, count: {}", persons.size());
     } catch (Exception e) {
@@ -65,42 +65,42 @@ public class PersonRepositoryImplJson implements PersonRepository {
   @Override
   public void update(Person person) {
     persons.replaceAll(existingPerson ->
-            isPersonDtoEqualPerson(existingPerson, new PersonDto(person.getFirstName(), person.getLastName())) ? person : existingPerson
+            isPersonDtoEqualPerson(existingPerson, new PersonSearch(person.getFirstName(), person.getLastName())) ? person : existingPerson
     );
   }
 
   /**
    * Finds a person by their first and last name.
    *
-   * @param personDto the DTO containing the first and last name
+   * @param personSearch the DTO containing the first and last name
    * @return an Optional containing the found person, or empty if not found
    */
   @Override
-  public Optional<Person> findByFirstNameAndLastName(PersonDto personDto) {
+  public Optional<Person> findByFirstNameAndLastName(PersonSearch personSearch) {
     return persons.stream()
-            .filter(person -> isPersonDtoEqualPerson(person, personDto))
+            .filter(person -> isPersonDtoEqualPerson(person, personSearch))
             .findFirst();
   }
 
   /**
    * Deletes a person from the repository.
    *
-   * @param personDto the DTO containing the first and last name of the person to delete
+   * @param personSearch the DTO containing the first and last name of the person to delete
    */
   @Override
-  public void delete(PersonDto personDto) {
-    persons.removeIf(person -> isPersonDtoEqualPerson(person, personDto));
+  public void delete(PersonSearch personSearch) {
+    persons.removeIf(person -> isPersonDtoEqualPerson(person, personSearch));
   }
 
   /**
    * Checks if a person exists in the repository.
    *
-   * @param personDto the DTO containing the first and last name of the person to check
+   * @param personSearch the DTO containing the first and last name of the person to check
    * @return true if the person exists, false otherwise
    */
   @Override
-  public boolean exists(PersonDto personDto) {
-    return persons.stream().anyMatch(person -> isPersonDtoEqualPerson(person, personDto));
+  public boolean exists(PersonSearch personSearch) {
+    return persons.stream().anyMatch(person -> isPersonDtoEqualPerson(person, personSearch));
   }
 
   /**
@@ -120,11 +120,11 @@ public class PersonRepositoryImplJson implements PersonRepository {
    * Checks if a person matches the given DTO.
    *
    * @param person    the person to check
-   * @param personDto the DTO containing the first and last name
+   * @param personSearch the DTO containing the first and last name
    * @return true if the person matches the DTO, false otherwise
    */
-  private boolean isPersonDtoEqualPerson(Person person, PersonDto personDto) {
-    return person.getFirstName().equals(personDto.getFirstName()) &&
-            person.getLastName().equals(personDto.getLastName());
+  private boolean isPersonDtoEqualPerson(Person person, PersonSearch personSearch) {
+    return person.getFirstName().equals(personSearch.getFirstName()) &&
+            person.getLastName().equals(personSearch.getLastName());
   }
 }

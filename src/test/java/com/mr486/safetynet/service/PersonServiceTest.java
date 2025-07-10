@@ -1,6 +1,6 @@
 package com.mr486.safetynet.service;
 
-import com.mr486.safetynet.dto.PersonDto;
+import com.mr486.safetynet.dto.PersonSearch;
 import com.mr486.safetynet.exeption.EntityAlreadyExistsException;
 import com.mr486.safetynet.exeption.EntityNotFoundException;
 import com.mr486.safetynet.model.Person;
@@ -36,7 +36,7 @@ class PersonServiceTest {
     Person person = new Person();
     person.setFirstName("John");
     person.setLastName("Doe");
-    PersonDto dto = new PersonDto(person);
+    PersonSearch dto = new PersonSearch(person);
     when(personRepository.findByFirstNameAndLastName(dto)).thenReturn(Optional.of(person));
 
     Optional<Person> result = personService.getPersonByFirstNameAndLastName(dto);
@@ -54,7 +54,7 @@ class PersonServiceTest {
     person.setFirstName("Jane");
     person.setLastName("Smith");
 
-    PersonDto dto = new PersonDto(person);
+    PersonSearch dto = new PersonSearch(person);
     when(personRepository.exists(dto)).thenReturn(false);
 
     personService.savePerson(person);
@@ -71,7 +71,7 @@ class PersonServiceTest {
     person.setFirstName("Jane");
     person.setLastName("Smith");
 
-    PersonDto dto = new PersonDto(person);
+    PersonSearch dto = new PersonSearch(person);
     when(personRepository.exists(dto)).thenReturn(true);
 
     assertThrows(EntityAlreadyExistsException.class, () -> personService.savePerson(person));
@@ -87,7 +87,7 @@ class PersonServiceTest {
     person.setFirstName("Jake");
     person.setLastName("Johnson");
 
-    PersonDto dto = new PersonDto(person);
+    PersonSearch dto = new PersonSearch(person);
     when(personRepository.exists(dto)).thenReturn(true);
 
     personService.updatePerson(person);
@@ -104,7 +104,7 @@ class PersonServiceTest {
     person.setFirstName("Jake");
     person.setLastName("Johnson");
 
-    PersonDto dto = new PersonDto(person);
+    PersonSearch dto = new PersonSearch(person);
     when(personRepository.exists(dto)).thenReturn(false);
 
     assertThrows(EntityNotFoundException.class, () -> personService.updatePerson(person));
@@ -116,7 +116,7 @@ class PersonServiceTest {
    */
   @Test
   void testDeletePerson_success() {
-    PersonDto dto = new PersonDto("John", "Doe");
+    PersonSearch dto = new PersonSearch("John", "Doe");
     when(personRepository.exists(dto)).thenReturn(true);
 
     personService.deletePerson(dto);
@@ -129,7 +129,7 @@ class PersonServiceTest {
    */
   @Test
   void testDeletePerson_notFound() {
-    PersonDto dto = new PersonDto("John", "Doe");
+    PersonSearch dto = new PersonSearch("John", "Doe");
     when(personRepository.exists(dto)).thenReturn(false);
 
     assertThrows(EntityNotFoundException.class, () -> personService.deletePerson(dto));

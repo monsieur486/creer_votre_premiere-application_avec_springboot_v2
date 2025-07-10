@@ -1,7 +1,7 @@
 package com.mr486.safetynet.repository;
 
-import com.mr486.safetynet.dto.DataBindingDto;
-import com.mr486.safetynet.dto.MedicalRecordDto;
+import com.mr486.safetynet.dto.DataBinding;
+import com.mr486.safetynet.dto.MedicalRecordSearch;
 import com.mr486.safetynet.model.MedicalRecord;
 import com.mr486.safetynet.tools.JsonDataReader;
 import org.junit.jupiter.api.BeforeEach;
@@ -42,14 +42,14 @@ class MedicalRecordRepositoryImplJsonTest {
             "Doe",
             "01/01/1990"
     );
-    MedicalRecordDto medicalRecordDto = new MedicalRecordDto(medicalRecord);
-    DataBindingDto dataBinding = new DataBindingDto();
+    MedicalRecordSearch medicalRecordSearch = new MedicalRecordSearch(medicalRecord);
+    DataBinding dataBinding = new DataBinding();
     dataBinding.setMedicalrecords(List.of(medicalRecord));
     when(mockJsonDataReader.loadData()).thenReturn(dataBinding);
 
     medicalRecordRepository.init();
 
-    Optional<MedicalRecord> result = medicalRecordRepository.findByFirstNameAndLastName(medicalRecordDto);
+    Optional<MedicalRecord> result = medicalRecordRepository.findByFirstNameAndLastName(medicalRecordSearch);
     assertTrue(result.isPresent());
     assertEquals("John", result.get().getFirstName());
     assertEquals("Doe", result.get().getLastName());
@@ -64,7 +64,7 @@ class MedicalRecordRepositoryImplJsonTest {
 
     medicalRecordRepository.init();
 
-    Optional<MedicalRecord> result = medicalRecordRepository.findByFirstNameAndLastName(new MedicalRecordDto("John", "Doe"));
+    Optional<MedicalRecord> result = medicalRecordRepository.findByFirstNameAndLastName(new MedicalRecordSearch("John", "Doe"));
     assertTrue(result.isEmpty());
 
   }
@@ -79,14 +79,14 @@ class MedicalRecordRepositoryImplJsonTest {
             "Doe",
             "01/01/1990"
     );
-    DataBindingDto dataBinding = new DataBindingDto();
+    DataBinding dataBinding = new DataBinding();
     dataBinding.setMedicalrecords(List.of(medicalRecord));
     when(mockJsonDataReader.loadData()).thenReturn(dataBinding);
 
     medicalRecordRepository.init();
     medicalRecordRepository.save(medicalRecord);
 
-    Optional<MedicalRecord> result = medicalRecordRepository.findByFirstNameAndLastName(new MedicalRecordDto("John", "Doe"));
+    Optional<MedicalRecord> result = medicalRecordRepository.findByFirstNameAndLastName(new MedicalRecordSearch("John", "Doe"));
     assertTrue(result.isPresent());
     assertEquals("John", result.get().getFirstName());
     assertEquals("Doe", result.get().getLastName());
@@ -103,7 +103,7 @@ class MedicalRecordRepositoryImplJsonTest {
             "Doe",
             "01/01/1990"
     );
-    DataBindingDto dataBinding = new DataBindingDto();
+    DataBinding dataBinding = new DataBinding();
     dataBinding.setMedicalrecords(List.of(medicalRecord));
     when(mockJsonDataReader.loadData()).thenReturn(dataBinding);
 
@@ -117,7 +117,7 @@ class MedicalRecordRepositoryImplJsonTest {
     );
     medicalRecordRepository.update(updatedMedicalRecord);
 
-    Optional<MedicalRecord> result = medicalRecordRepository.findByFirstNameAndLastName(new MedicalRecordDto("John", "Doe"));
+    Optional<MedicalRecord> result = medicalRecordRepository.findByFirstNameAndLastName(new MedicalRecordSearch("John", "Doe"));
     assertTrue(result.isPresent());
     assertEquals("01/01/2001", result.get().getBirthdate());
   }
@@ -132,14 +132,14 @@ class MedicalRecordRepositoryImplJsonTest {
             "Doe",
             "01/01/1990"
     );
-    DataBindingDto dataBinding = new DataBindingDto();
+    DataBinding dataBinding = new DataBinding();
     dataBinding.setMedicalrecords(List.of(medicalRecord));
     when(mockJsonDataReader.loadData()).thenReturn(dataBinding);
 
     medicalRecordRepository.init();
     medicalRecordRepository.save(medicalRecord);
 
-    Optional<MedicalRecord> result = medicalRecordRepository.findByFirstNameAndLastName(new MedicalRecordDto("John", "Doe"));
+    Optional<MedicalRecord> result = medicalRecordRepository.findByFirstNameAndLastName(new MedicalRecordSearch("John", "Doe"));
     assertTrue(result.isPresent());
     assertEquals("John", result.get().getFirstName());
     assertEquals("Doe", result.get().getLastName());
@@ -155,17 +155,17 @@ class MedicalRecordRepositoryImplJsonTest {
             "Doe",
             "01/01/1990"
     );
-    MedicalRecordDto medicalRecordDto = new MedicalRecordDto(medicalRecord);
-    DataBindingDto dataBinding = new DataBindingDto();
+    MedicalRecordSearch medicalRecordSearch = new MedicalRecordSearch(medicalRecord);
+    DataBinding dataBinding = new DataBinding();
     dataBinding.setMedicalrecords(List.of(medicalRecord));
     when(mockJsonDataReader.loadData()).thenReturn(dataBinding);
 
     medicalRecordRepository.init();
     medicalRecordRepository.save(medicalRecord);
 
-    medicalRecordRepository.delete(medicalRecordDto);
+    medicalRecordRepository.delete(medicalRecordSearch);
 
-    Optional<MedicalRecord> result = medicalRecordRepository.findByFirstNameAndLastName(medicalRecordDto);
+    Optional<MedicalRecord> result = medicalRecordRepository.findByFirstNameAndLastName(medicalRecordSearch);
     assertTrue(result.isEmpty());
   }
 
@@ -174,7 +174,7 @@ class MedicalRecordRepositoryImplJsonTest {
    */
   @Test
   void handlesNonExistentMedicalRecordGracefully() {
-    Optional<MedicalRecord> result = medicalRecordRepository.findByFirstNameAndLastName(new MedicalRecordDto("NonExistent", "Person"));
+    Optional<MedicalRecord> result = medicalRecordRepository.findByFirstNameAndLastName(new MedicalRecordSearch("NonExistent", "Person"));
     assertTrue(result.isEmpty());
   }
 
@@ -188,17 +188,17 @@ class MedicalRecordRepositoryImplJsonTest {
             "Doe",
             "01/01/1990"
     );
-    DataBindingDto dataBinding = new DataBindingDto();
+    DataBinding dataBinding = new DataBinding();
     dataBinding.setMedicalrecords(List.of(medicalRecord));
     when(mockJsonDataReader.loadData()).thenReturn(dataBinding);
 
     medicalRecordRepository.init();
     medicalRecordRepository.save(medicalRecord);
 
-    boolean exists = medicalRecordRepository.exists(new MedicalRecordDto("John", "Doe"));
+    boolean exists = medicalRecordRepository.exists(new MedicalRecordSearch("John", "Doe"));
     assertTrue(exists);
 
-    boolean notExists = medicalRecordRepository.exists(new MedicalRecordDto("Jane", "Doe"));
+    boolean notExists = medicalRecordRepository.exists(new MedicalRecordSearch("Jane", "Doe"));
     assertFalse(notExists);
   }
 
@@ -212,14 +212,14 @@ class MedicalRecordRepositoryImplJsonTest {
             "Doe",
             "01/01/1990"
     );
-    DataBindingDto dataBinding = new DataBindingDto();
+    DataBinding dataBinding = new DataBinding();
     dataBinding.setMedicalrecords(List.of(medicalRecord));
     when(mockJsonDataReader.loadData()).thenReturn(dataBinding);
 
     medicalRecordRepository.init();
     medicalRecordRepository.save(medicalRecord);
 
-    Optional<MedicalRecord> result = medicalRecordRepository.findByFirstNameAndLastName(new MedicalRecordDto("John", "Smith"));
+    Optional<MedicalRecord> result = medicalRecordRepository.findByFirstNameAndLastName(new MedicalRecordSearch("John", "Smith"));
     assertTrue(result.isEmpty());
   }
 
@@ -233,7 +233,7 @@ class MedicalRecordRepositoryImplJsonTest {
             "Doe",
             "01/01/1990"
     );
-    DataBindingDto dataBinding = new DataBindingDto();
+    DataBinding dataBinding = new DataBinding();
     dataBinding.setMedicalrecords(List.of(medicalRecord));
     when(mockJsonDataReader.loadData()).thenReturn(dataBinding);
 
@@ -247,7 +247,7 @@ class MedicalRecordRepositoryImplJsonTest {
     );
     medicalRecordRepository.update(nonExistentRecord);
 
-    Optional<MedicalRecord> result = medicalRecordRepository.findByFirstNameAndLastName(new MedicalRecordDto("John", "Doe"));
+    Optional<MedicalRecord> result = medicalRecordRepository.findByFirstNameAndLastName(new MedicalRecordSearch("John", "Doe"));
     assertTrue(result.isPresent());
     assertEquals("01/01/1990", result.get().getBirthdate());
   }

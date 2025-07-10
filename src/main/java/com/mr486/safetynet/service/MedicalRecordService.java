@@ -1,6 +1,6 @@
 package com.mr486.safetynet.service;
 
-import com.mr486.safetynet.dto.MedicalRecordDto;
+import com.mr486.safetynet.dto.MedicalRecordSearch;
 import com.mr486.safetynet.exeption.EntityAlreadyExistsException;
 import com.mr486.safetynet.exeption.EntityNotFoundException;
 import com.mr486.safetynet.model.MedicalRecord;
@@ -34,11 +34,11 @@ public class MedicalRecordService {
   /**
    * Retrieves a medical record by first name and last name.
    *
-   * @param medicalRecordDto the DTO containing first name and last name
+   * @param medicalRecordSearch the DTO containing first name and last name
    * @return an Optional containing the MedicalRecord if found, otherwise empty
    */
-  public Optional<MedicalRecord> getMedicalRecordByFirstNameAndLastName(MedicalRecordDto medicalRecordDto) {
-    return medicalRecordRepository.findByFirstNameAndLastName(medicalRecordDto);
+  public Optional<MedicalRecord> getMedicalRecordByFirstNameAndLastName(MedicalRecordSearch medicalRecordSearch) {
+    return medicalRecordRepository.findByFirstNameAndLastName(medicalRecordSearch);
   }
 
   /**
@@ -47,8 +47,8 @@ public class MedicalRecordService {
    * @param medicalRecord the MedicalRecord object containing first name and last name
    */
   public void saveMedicalRecord(MedicalRecord medicalRecord) {
-    MedicalRecordDto medicalRecordDto = new MedicalRecordDto(medicalRecord.getFirstName(), medicalRecord.getLastName());
-    if (medicalRecordRepository.exists(medicalRecordDto)) {
+    MedicalRecordSearch medicalRecordSearch = new MedicalRecordSearch(medicalRecord.getFirstName(), medicalRecord.getLastName());
+    if (medicalRecordRepository.exists(medicalRecordSearch)) {
       String message = "Medical record for first name [" + medicalRecord.getFirstName() + "] and last name [" + medicalRecord.getLastName() + "] already exists!";
       throw new EntityAlreadyExistsException(message);
     }
@@ -61,8 +61,8 @@ public class MedicalRecordService {
    * @param medicalRecord the MedicalRecord object containing updated information
    */
   public void updateMedicalRecord(MedicalRecord medicalRecord) {
-    MedicalRecordDto medicalRecordDto = new MedicalRecordDto(medicalRecord.getFirstName(), medicalRecord.getLastName());
-    if (!medicalRecordRepository.exists(medicalRecordDto)) {
+    MedicalRecordSearch medicalRecordSearch = new MedicalRecordSearch(medicalRecord.getFirstName(), medicalRecord.getLastName());
+    if (!medicalRecordRepository.exists(medicalRecordSearch)) {
       String message = "Medical record for first name [" + medicalRecord.getFirstName() + "] and last name [" + medicalRecord.getLastName() + "] does not exist!";
       throw new EntityNotFoundException(message);
     }
@@ -72,14 +72,14 @@ public class MedicalRecordService {
   /**
    * Deletes a medical record.
    *
-   * @param medicalRecordDto the DTO containing first name and last name of the medical record to delete
+   * @param medicalRecordSearch the DTO containing first name and last name of the medical record to delete
    */
-  public void deleteMedicalRecord(MedicalRecordDto medicalRecordDto) {
-    if (!medicalRecordRepository.exists(medicalRecordDto)) {
-      String message = "Medical record for first name [" + medicalRecordDto.getFirstName() + "] and last name [" + medicalRecordDto.getLastName() + "] does not exist!";
+  public void deleteMedicalRecord(MedicalRecordSearch medicalRecordSearch) {
+    if (!medicalRecordRepository.exists(medicalRecordSearch)) {
+      String message = "Medical record for first name [" + medicalRecordSearch.getFirstName() + "] and last name [" + medicalRecordSearch.getLastName() + "] does not exist!";
       throw new EntityNotFoundException(message);
     }
-    medicalRecordRepository.delete(medicalRecordDto);
+    medicalRecordRepository.delete(medicalRecordSearch);
   }
 
   /**

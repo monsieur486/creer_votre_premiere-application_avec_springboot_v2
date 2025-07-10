@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class FireStationDto {
+public class FireStationSearch {
   /**
    * The address of the fire station.
    * Must not be blank.

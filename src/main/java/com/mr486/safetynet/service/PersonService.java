@@ -1,6 +1,6 @@
 package com.mr486.safetynet.service;
 
-import com.mr486.safetynet.dto.PersonDto;
+import com.mr486.safetynet.dto.PersonSearch;
 import com.mr486.safetynet.exeption.EntityAlreadyExistsException;
 import com.mr486.safetynet.exeption.EntityNotFoundException;
 import com.mr486.safetynet.model.Person;
@@ -23,11 +23,11 @@ public class PersonService {
   /**
    * Retrieves a person by their first name and last name.
    *
-   * @param personDto the DTO containing the first name and last name of the person to retrieve.
+   * @param personSearch the DTO containing the first name and last name of the person to retrieve.
    * @return an Optional containing the Person if found, or empty otherwise.
    */
-  public Optional<Person> getPersonByFirstNameAndLastName(PersonDto personDto) {
-    return personRepository.findByFirstNameAndLastName(personDto);
+  public Optional<Person> getPersonByFirstNameAndLastName(PersonSearch personSearch) {
+    return personRepository.findByFirstNameAndLastName(personSearch);
   }
 
   /**
@@ -37,8 +37,8 @@ public class PersonService {
    * @param person the Person entity to save.
    */
   public void savePerson(Person person) {
-    PersonDto personDto = new PersonDto(person.getFirstName(), person.getLastName());
-    if (personRepository.exists(personDto)) {
+    PersonSearch personSearch = new PersonSearch(person.getFirstName(), person.getLastName());
+    if (personRepository.exists(personSearch)) {
       String message = "Person with first name [" + person.getFirstName() + "] and last name [" + person.getLastName() + "] already exists!";
       throw new EntityAlreadyExistsException(message);
     }
@@ -52,8 +52,8 @@ public class PersonService {
    * @param person the Person entity with updated information.
    */
   public void updatePerson(Person person) {
-    PersonDto personDto = new PersonDto(person.getFirstName(), person.getLastName());
-    if (!personRepository.exists(personDto)) {
+    PersonSearch personSearch = new PersonSearch(person.getFirstName(), person.getLastName());
+    if (!personRepository.exists(personSearch)) {
       String message = "Person with first name [" + person.getFirstName() + "] and last name [" + person.getLastName() + "] does not exist!";
       throw new EntityNotFoundException(message);
     }
@@ -64,13 +64,13 @@ public class PersonService {
    * Deletes a person.
    * Throws an exception if the person does not exist.
    *
-   * @param personDto the DTO containing the first name and last name of the person to delete.
+   * @param personSearch the DTO containing the first name and last name of the person to delete.
    */
-  public void deletePerson(PersonDto personDto) {
-    if (!personRepository.exists(personDto)) {
-      String message = "Person with first name [" + personDto.getFirstName() + "] and last name [" + personDto.getLastName() + "] does not exist!";
+  public void deletePerson(PersonSearch personSearch) {
+    if (!personRepository.exists(personSearch)) {
+      String message = "Person with first name [" + personSearch.getFirstName() + "] and last name [" + personSearch.getLastName() + "] does not exist!";
       throw new EntityNotFoundException(message);
     }
-    personRepository.delete(personDto);
+    personRepository.delete(personSearch);
   }
 }

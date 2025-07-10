@@ -1,6 +1,6 @@
 package com.mr486.safetynet.controller;
 
-import com.mr486.safetynet.dto.FireStationCoverageDto;
+import com.mr486.safetynet.dto.FireStationCoverage;
 import com.mr486.safetynet.service.FireStationCoverageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -24,11 +24,11 @@ public class FireStationCoverageController {
    * Retrieves the coverage information for a specific fire station.
    *
    * @param stationNumber the number of the fire station to retrieve coverage for
-   * @return ResponseEntity containing FireStationCoverageDto with coverage details
+   * @return ResponseEntity containing FireStationCoverage with coverage details
    */
   @GetMapping
-  public ResponseEntity<FireStationCoverageDto> getCoverageByStation(@RequestParam Integer stationNumber) {
-    FireStationCoverageDto coverage = fireStationCoverageService.getCoverageByStationNumber(stationNumber);
+  public ResponseEntity<FireStationCoverage> getCoverageByStation(@RequestParam Integer stationNumber) {
+    FireStationCoverage coverage = fireStationCoverageService.getCoverageByStationNumber(stationNumber);
 
     if (coverage.getPersons().isEmpty()) {
       return ResponseEntity.noContent().build();

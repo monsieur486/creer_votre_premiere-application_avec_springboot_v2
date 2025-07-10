@@ -1,6 +1,6 @@
 package com.mr486.safetynet.controller;
 
-import com.mr486.safetynet.dto.MedicalRecordDto;
+import com.mr486.safetynet.dto.MedicalRecordSearch;
 import com.mr486.safetynet.model.MedicalRecord;
 import com.mr486.safetynet.service.MedicalRecordService;
 import com.mr486.safetynet.tools.ResponseUtil;
@@ -51,12 +51,12 @@ public class MedicalRecordController {
   /**
    * Deletes a medical record by its first and last name.
    *
-   * @param medicalRecordDto The MedicalRecordDto object containing the first and last name of the medical record to be deleted. Must be valid.
+   * @param medicalRecordSearch The MedicalRecordSearch object containing the first and last name of the medical record to be deleted. Must be valid.
    * @return ResponseEntity containing a success message.
    */
   @DeleteMapping(path = "", produces = "application/json")
-  public ResponseEntity<String> deleteMedicalRecord(@RequestBody @Valid MedicalRecordDto medicalRecordDto) {
-    medicalRecordService.deleteMedicalRecord(medicalRecordDto);
+  public ResponseEntity<String> deleteMedicalRecord(@RequestBody @Valid MedicalRecordSearch medicalRecordSearch) {
+    medicalRecordService.deleteMedicalRecord(medicalRecordSearch);
     return ResponseUtil.success(
             "Medical record deleted successfully"
     );

@@ -1,7 +1,7 @@
 package com.mr486.safetynet.repository;
 
-import com.mr486.safetynet.dto.DataBindingDto;
-import com.mr486.safetynet.dto.MedicalRecordDto;
+import com.mr486.safetynet.dto.DataBinding;
+import com.mr486.safetynet.dto.MedicalRecordSearch;
 import com.mr486.safetynet.model.MedicalRecord;
 import com.mr486.safetynet.tools.JsonDataReader;
 import jakarta.annotation.PostConstruct;
@@ -37,7 +37,7 @@ public class MedicalRecordRepositoryImplJson implements MedicalRecordRepository 
   void init() {
     log.warn("MedicalRecords data loading from json file");
     try {
-      DataBindingDto dataBinding = jsonDataReader.loadData();
+      DataBinding dataBinding = jsonDataReader.loadData();
       medicalRecords = new java.util.ArrayList<>(dataBinding.getMedicalrecords());
       log.warn("✅ \"MedicalRecords data loaded successfully, count: {}", medicalRecords.size());
     } catch (Exception e) {
@@ -65,7 +65,7 @@ public class MedicalRecordRepositoryImplJson implements MedicalRecordRepository 
     medicalRecords.replaceAll(existingMedicalRecord ->
             isMedicRecordDtoEqualMedicalRecord(
                     existingMedicalRecord,
-                    new MedicalRecordDto(
+                    new MedicalRecordSearch(
                             medicalRecord.getFirstName(),
                             medicalRecord.getLastName()))
                     ? medicalRecord : existingMedicalRecord
@@ -75,13 +75,13 @@ public class MedicalRecordRepositoryImplJson implements MedicalRecordRepository 
   /**
    * Finds a medical record by first name and last name.
    *
-   * @param medicalRecordDto the DTO containing first name and last name
+   * @param medicalRecordSearch the DTO containing first name and last name
    * @return an Optional containing the found medical record, or empty if not found
    */
   @Override
-  public Optional<MedicalRecord> findByFirstNameAndLastName(MedicalRecordDto medicalRecordDto) {
+  public Optional<MedicalRecord> findByFirstNameAndLastName(MedicalRecordSearch medicalRecordSearch) {
     return medicalRecords.stream()
-            .filter(medicalRecord -> isMedicRecordDtoEqualMedicalRecord(medicalRecord, medicalRecordDto))
+            .filter(medicalRecord -> isMedicRecordDtoEqualMedicalRecord(medicalRecord, medicalRecordSearch))
             .findFirst();
   }
 
@@ -91,7 +91,7 @@ public class MedicalRecordRepositoryImplJson implements MedicalRecordRepository 
    * @param medicalRecord the DTO containing first name and last name of the medical record to delete
    */
   @Override
-  public void delete(MedicalRecordDto medicalRecord) {
+  public void delete(MedicalRecordSearch medicalRecord) {
     medicalRecords.removeIf(existingMedicalRecord ->
             isMedicRecordDtoEqualMedicalRecord(existingMedicalRecord, medicalRecord));
   }
@@ -99,24 +99,24 @@ public class MedicalRecordRepositoryImplJson implements MedicalRecordRepository 
   /**
    * Checks if a medical record exists in the repository.
    *
-   * @param medicalRecordDto the DTO containing first name and last name
+   * @param medicalRecordSearch the DTO containing first name and last name
    * @return true if the medical record exists, false otherwise
    */
   @Override
-  public boolean exists(MedicalRecordDto medicalRecordDto) {
+  public boolean exists(MedicalRecordSearch medicalRecordSearch) {
     return medicalRecords.stream()
-            .anyMatch(medicalRecord -> isMedicRecordDtoEqualMedicalRecord(medicalRecord, medicalRecordDto));
+            .anyMatch(medicalRecord -> isMedicRecordDtoEqualMedicalRecord(medicalRecord, medicalRecordSearch));
   }
 
   /**
    * Checks if a medical record DTO is equal to a medical record.
    *
    * @param medicalRecord    the medical record to compare
-   * @param medicalRecordDto the DTO to compare
+   * @param medicalRecordSearch the DTO to compare
    * @return true if they are equal, false otherwise
    */
-  private boolean isMedicRecordDtoEqualMedicalRecord(MedicalRecord medicalRecord, MedicalRecordDto medicalRecordDto) {
-    return medicalRecord.getFirstName().equals(medicalRecordDto.getFirstName())
-            && medicalRecord.getLastName().equals(medicalRecordDto.getLastName());
+  private boolean isMedicRecordDtoEqualMedicalRecord(MedicalRecord medicalRecord, MedicalRecordSearch medicalRecordSearch) {
+    return medicalRecord.getFirstName().equals(medicalRecordSearch.getFirstName())
+            && medicalRecord.getLastName().equals(medicalRecordSearch.getLastName());
   }
 }

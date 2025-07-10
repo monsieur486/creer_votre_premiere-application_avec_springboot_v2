@@ -1,6 +1,6 @@
 package com.mr486.safetynet.repository;
 
-import com.mr486.safetynet.dto.DataBindingDto;
+import com.mr486.safetynet.dto.DataBinding;
 import com.mr486.safetynet.model.FireStation;
 import com.mr486.safetynet.tools.JsonDataReader;
 import org.junit.jupiter.api.Test;
@@ -43,7 +43,7 @@ class FireStationRepositoryImplJsonTest {
   void init_shouldLoadFireStationsFromJson() {
     MockitoAnnotations.openMocks(this);
     FireStation station = new FireStation("Address1", 1);
-    DataBindingDto dataBinding = new DataBindingDto();
+    DataBinding dataBinding = new DataBinding();
     dataBinding.setFirestations(List.of(station));
     when(mockJsonDataReader.loadData()).thenReturn(dataBinding);
 
@@ -75,7 +75,7 @@ class FireStationRepositoryImplJsonTest {
   void getAllFireStationsByStationNumber_shouldReturnEmptyListIfNoMatch() {
     MockitoAnnotations.openMocks(this);
     FireStation station = new FireStation("Address1", 1);
-    when(mockJsonDataReader.loadData()).thenReturn(new DataBindingDto());
+    when(mockJsonDataReader.loadData()).thenReturn(new DataBinding());
 
     fireStationRepository.init();
     fireStationRepository.saveFireStation(station);
@@ -100,7 +100,7 @@ class FireStationRepositoryImplJsonTest {
   void saveFireStation_shouldAddNewFireStation() {
     MockitoAnnotations.openMocks(this);
     FireStation station = new FireStation("Address1", 1);
-    when(mockJsonDataReader.loadData()).thenReturn(new DataBindingDto());
+    when(mockJsonDataReader.loadData()).thenReturn(new DataBinding());
 
     fireStationRepository.init();
     fireStationRepository.saveFireStation(station);
@@ -116,7 +116,7 @@ class FireStationRepositoryImplJsonTest {
   void updateFireStation_shouldModifyStationNumberIfExists() {
     MockitoAnnotations.openMocks(this);
     FireStation station = new FireStation("Address1", 1);
-    when(mockJsonDataReader.loadData()).thenReturn(new DataBindingDto());
+    when(mockJsonDataReader.loadData()).thenReturn(new DataBinding());
     fireStationRepository.init();
     fireStationRepository.saveFireStation(station);
 
@@ -144,7 +144,7 @@ class FireStationRepositoryImplJsonTest {
   void deleteFireStationByAddress_shouldRemoveFireStation() {
     MockitoAnnotations.openMocks(this);
     FireStation station = new FireStation("Address1", 1);
-    DataBindingDto dataBinding = new DataBindingDto();
+    DataBinding dataBinding = new DataBinding();
     dataBinding.setFirestations(List.of(station));
     when(mockJsonDataReader.loadData()).thenReturn(dataBinding);
 
@@ -160,7 +160,7 @@ class FireStationRepositoryImplJsonTest {
   void deleteFireStationByAddress_shouldDoNothingIfAddressNotExists() {
     MockitoAnnotations.openMocks(this);
     FireStation station = new FireStation("Address1", 1);
-    DataBindingDto dataBinding = new DataBindingDto();
+    DataBinding dataBinding = new DataBinding();
     dataBinding.setFirestations(List.of(station));
     when(mockJsonDataReader.loadData()).thenReturn(dataBinding);
     fireStationRepository.init();

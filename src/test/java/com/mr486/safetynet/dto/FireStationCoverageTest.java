@@ -5,19 +5,19 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * Unit tests for the FireStationCoverageDto class.
+ * Unit tests for the FireStationCoverage class.
  * Tests the functionality of adding persons to the coverage list.
  */
-class FireStationCoverageDtoTest {
+class FireStationCoverageTest {
 
   /**
-   * Tests adding a person to an empty FireStationCoverageDto.
+   * Tests adding a person to an empty FireStationCoverage.
    * Verifies that the person is added correctly.
    */
   @Test
   void addsPersonToEmptyList() {
-    FireStationCoverageDto dto = new FireStationCoverageDto();
-    PersonInfoDto person = new PersonInfoDto("John", "Doe", "123 Main St", "123-456-7890");
+    FireStationCoverage dto = new FireStationCoverage();
+    PersonInfo person = new PersonInfo("John", "Doe", "123 Main St", "123-456-7890");
 
     dto.addPerson(person);
 

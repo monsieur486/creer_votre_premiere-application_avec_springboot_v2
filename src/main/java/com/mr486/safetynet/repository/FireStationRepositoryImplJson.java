@@ -1,6 +1,6 @@
 package com.mr486.safetynet.repository;
 
-import com.mr486.safetynet.dto.DataBindingDto;
+import com.mr486.safetynet.dto.DataBinding;
 import com.mr486.safetynet.model.FireStation;
 import com.mr486.safetynet.tools.JsonDataReader;
 import jakarta.annotation.PostConstruct;
@@ -40,7 +40,7 @@ public class FireStationRepositoryImplJson implements FireStationRepository {
   void init() {
     log.warn("Fire stations data loading from json file");
     try {
-      DataBindingDto dataBinding = jsonDataReader.loadData();
+      DataBinding dataBinding = jsonDataReader.loadData();
       fireStations = new java.util.ArrayList<>(dataBinding.getFirestations());
       log.warn("✅ Fire stations data loaded successfully, count: {}", fireStations.size());
     } catch (Exception e) {
