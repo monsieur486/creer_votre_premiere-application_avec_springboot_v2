@@ -7,8 +7,10 @@ import com.mr486.safetynet.model.MedicalRecord;
 import com.mr486.safetynet.repository.MedicalRecordRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedStatic;
 
 import java.lang.reflect.Field;
+import java.time.LocalDate;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -179,5 +181,21 @@ class MedicalRecordServiceTest {
 
     assertThrows(IllegalArgumentException.class, () -> medicalRecordService.isAdult(medicalRecord));
   }
+
+  /**
+   * Test for calculating age based on birthdate
+   */
+  @Test
+  void testCalculateAge() {
+    MedicalRecord medicalRecord = new MedicalRecord();
+    medicalRecord.setBirthdate("01/01/2000");
+
+    int age = medicalRecordService.calculateAge(medicalRecord.getBirthdate());
+    LocalDate birthDate = LocalDate.parse(medicalRecord.getBirthdate(), java.time.format.DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+    int expectedAge = LocalDate.now().getYear() - birthDate.getYear();
+
+    assertEquals(expectedAge, age, "Expected age to match the calculated age based on the birthdate.");
+  }
+
 
 }
