@@ -258,4 +258,24 @@ class PersonRepositoryImplJsonTest {
     assertTrue(result.isPresent());
     assertEquals("123 Main St", result.get().getAddress(), "Expected address to remain unchanged");
   }
+
+  /**
+   * Verifies that the repository can find persons by their address.
+   */
+  @Test
+  void findPersonsByAddress_shouldReturnPersonsAtGivenAddress() {
+    Person person = new Person("John",
+            "Doe",
+            "123 Main St",
+            "Cityville",
+            "12345",
+            "123-456-7890",
+            "john.doe@test.com"
+    );
+    when(mockJsonDataReader.loadData()).thenReturn(new DataBindingDto());
+    personRepository.init();
+    personRepository.save(person);
+    List<Person> personsAtAddress = personRepository.findPersonsByAddress("123 Main St");
+    assertFalse(personsAtAddress.isEmpty(), "Expected to find persons at address '123 Main St'");
+  }
 }
