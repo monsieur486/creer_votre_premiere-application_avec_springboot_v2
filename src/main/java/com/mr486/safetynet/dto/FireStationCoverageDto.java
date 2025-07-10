@@ -20,6 +20,11 @@ public class FireStationCoverageDto {
   private long adultCount;
   private long childCount;
 
+  /**
+   * Adds a person to the list of persons covered by the fire station.
+   *
+   * @param person the person to be added
+   */
   public void addPerson(PersonInfoDto person) {
     if (persons == null) {
       persons = new ArrayList<>();

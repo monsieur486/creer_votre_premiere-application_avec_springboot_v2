@@ -4,6 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Data Transfer Object for Person Information.
+ * Contains personal details such as first name, last name, address, and phone number.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
