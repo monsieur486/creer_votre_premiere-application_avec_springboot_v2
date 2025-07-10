@@ -11,7 +11,8 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 /**
@@ -111,8 +112,8 @@ class FireStationCoverageServiceTest {
             .thenReturn(List.of(new FireStation("123 Main St", 1)));
     when(personRepository.findPersonsByAddress("123 Main St"))
             .thenReturn(List.of(
-                    new Person("John", "Doe", "123 Main St", "city","zip", "123-456-7891","email@test.fr"),
-                    new Person("Jane", "Doe", "123 Main St", "city","zip", "123-456-7891","email@test.fr")
+                    new Person("John", "Doe", "123 Main St", "city", "zip", "123-456-7891", "email@test.fr"),
+                    new Person("Jane", "Doe", "123 Main St", "city", "zip", "123-456-7891", "email@test.fr")
             ));
     when(medicalRecordService.getMedicalRecordByFirstNameAndLastName(any()))
             .thenReturn(Optional.of(new MedicalRecord("John", "Doe", "01/01/2000")))
