@@ -197,5 +197,16 @@ class MedicalRecordServiceTest {
     assertEquals(expectedAge, age, "Expected age to match the calculated age based on the birthdate.");
   }
 
+  /**
+   * Test for calculating age with an invalid birthdate format
+   */
+  @Test
+  void testCalculateAge_withInvalidBirthdate() {
+    MedicalRecord medicalRecord = new MedicalRecord();
+    medicalRecord.setBirthdate("invalid-date");
+
+    assertThrows(IllegalArgumentException.class, () -> medicalRecordService.calculateAge(medicalRecord.getBirthdate()));
+  }
+
 
 }
