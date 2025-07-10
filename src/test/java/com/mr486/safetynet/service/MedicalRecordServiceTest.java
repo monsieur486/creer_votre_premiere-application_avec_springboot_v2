@@ -7,7 +7,6 @@ import com.mr486.safetynet.model.MedicalRecord;
 import com.mr486.safetynet.repository.MedicalRecordRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockedStatic;
 
 import java.lang.reflect.Field;
 import java.time.LocalDate;

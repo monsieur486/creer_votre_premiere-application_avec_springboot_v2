@@ -119,7 +119,7 @@ public class PersonRepositoryImplJson implements PersonRepository {
   /**
    * Checks if a person matches the given DTO.
    *
-   * @param person    the person to check
+   * @param person       the person to check
    * @param personSearch the DTO containing the first and last name
    * @return true if the person matches the DTO, false otherwise
    */
