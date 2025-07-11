@@ -102,12 +102,12 @@ public class MedicalRecordService {
    * @return the age in years
    */
   public int calculateAge(String birthdate) {
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(AppConfiguration.DATE_FORMAT);
     try {
       LocalDate now = LocalDate.now();
       return Period.between(LocalDate.parse(birthdate, formatter), now).getYears();
     } catch (DateTimeParseException e) {
-      throw new IllegalArgumentException("Invalid birthdate format. Expected format is MM/dd/yyyy.", e);
+      throw new IllegalArgumentException("Invalid birthdate format. Expected format is: "+ AppConfiguration.DATE_FORMAT, e);
     }
   }
 
