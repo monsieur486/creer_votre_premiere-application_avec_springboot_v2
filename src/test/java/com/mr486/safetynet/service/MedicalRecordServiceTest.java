@@ -8,7 +8,6 @@ import com.mr486.safetynet.repository.MedicalRecordRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Field;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Optional;

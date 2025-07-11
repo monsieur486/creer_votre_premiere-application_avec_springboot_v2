@@ -8,7 +8,6 @@ import com.mr486.safetynet.model.MedicalRecord;
 import com.mr486.safetynet.repository.MedicalRecordRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -98,7 +97,7 @@ public class MedicalRecordService {
   /**
    * Calculates the age based on the provided birthdate.
    *
-   * @param birthdate the birthdate in MM/dd/yyyy format
+   * @param birthdate the birthdate in AppConfiguration.DATE_FORMAT
    * @return the age in years
    */
   public int calculateAge(String birthdate) {
