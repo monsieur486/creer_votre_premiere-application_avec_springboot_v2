@@ -2,6 +2,7 @@ package com.mr486.safetynet.configuration;
 
 import com.mr486.safetynet.exeption.EntityAlreadyExistsException;
 import com.mr486.safetynet.exeption.EntityNotFoundException;
+import com.mr486.safetynet.exeption.WrongDateFormatException;
 import com.mr486.safetynet.tools.ResponseUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -76,6 +77,20 @@ public class GlobalExceptionHandler {
   public ResponseEntity<String> handleNoHandlerFoundException(NoHandlerFoundException ex) {
     return ResponseUtil.notFound(
             "❌ Page not found: " + ex.getRequestURL()
+    );
+  }
+
+  /**
+   * Handles WrongDateFormatException.
+   * Returns an HTTP 400 (Bad Request) response with an error message.
+   *
+   * @param ex the thrown exception
+   * @return ResponseEntity containing an ApiResponse with error details
+   */
+  @ExceptionHandler(WrongDateFormatException.class)
+  public ResponseEntity<String> handleWrongDateFormatException(WrongDateFormatException ex) {
+    return ResponseUtil.badRequest(
+            "❌ Wrong date format: " + ex.getMessage()
     );
   }
 
